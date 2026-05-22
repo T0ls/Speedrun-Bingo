@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1663695810 source:c:\users\giulio\desktop\speedrun bingo\code\main.cpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+
