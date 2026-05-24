@@ -9,7 +9,8 @@
 	<!-- Modern theme (overrides) - cache-bust to force reload -->
 	<link href="style.css" rel="stylesheet">
 	<!-- Scripts -->
-	<script src="script.js"></script>
+	<script src="bingoData.js" defer></script>
+	<script src="script.js" defer></script>
     <link rel="icon" href="Images/Speedrun%20bingo%20Logo.png">
 
 	<!-- Bingo Table -->
@@ -163,6 +164,10 @@
 					<h2 class="sideheading">Generate a new card</h2>
 
 					<p><span class="note">Select one type of card to generate a new one.</span></p>
+					<p class="seed-row">
+						<label for="seedInput">Seed</label>
+						<input id="seedInput" name="seed" type="text" placeholder="Leave empty for random" />
+					</p>
 					<p id="sortButtons" >
 						<button class="sortButton" onclick="Easy()">Short Card</button>
 						<button class="sortButton" onclick="Normal()">Normal Card</button>
