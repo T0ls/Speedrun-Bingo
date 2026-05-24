@@ -7,482 +7,88 @@ let Table = ["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"
 
 //Database categories objectives
 
-
 /*Difficulty: Easy*/
-
- //Row 1:
- //Cat1: Learn
-let cate1 =
-["Learn how to dig","Read a book","Learn an ability invoving water","d1","e1",
- "f1","g1","h1","i1","j1",
- "k1","l1","m1","n1","o1"];
-
- //Cat2: Kill
-let cate2 =
-["Commit seppuku (kill yourself)","Kill a knight","Kill a spider","Kill a zombie","e2",
- "f2","g2","h2","i2","j2",
- "k2","l2","m2","n2","o2"];
-
- //Cat3: Obtain
-let cate3 =
-["Collect 100 golden things","Obtain a card","Obtain a fruit","d3","e3",
- "f3","g3","h3","i3","j3",
- "k3","l3","m3","n3","o3"];
-
- //Cat4: Saving
-let cate4 =
-["Obtain a map","Reach any checkpoint","Save your game","d4","e4",
- "f4","g4","h4","i4","j4",
- "k4","l4","m4","n4","o4"];
-
- //Cat5: Fighting
-let cate5 =
-["a5","b5","c5","d5","e5",
- "f5","g5","h5","i5","j5",
- "k5","l5","m5","n5","o5"];
-
- //Row 2:
- //Cat6: Area
-let cate6 =
-["Touch Grass","Enter a forest","Enter a jungle","Enter a castle","Enter a desert",
- "Enter a snowy area","g6","h6","i6","j6",
- "k6","l6","m6","n6","o6"];
-
- //Cat7: Glitches
-let cate7 =
-["Glitch out of bounds","b7","c7","d7","e7",
- "f7","g7","h7","i7","j7",
- "k7","l7","m7","n7","o7"];
-
- //Cat8: Lives
-let cate8 =
-["a8","b8","c8","d8","e8",
- "f8","g8","h8","i8","j8",
- "k8","l8","m8","n8","o8"];
-
- //Cat9: Observe
-let cate9 =
-["Look at a woman","Look at a stone statue","Look at a metal statue","d9","e9",
- "f9","g9","h9","i9","j9",
- "k9","l9","m9","n9","o9"];
-
- //Cat10: Boss
-let cate10 =
-["Defeat a boss","Beat any non-tutorial boss","Defeat a tutorial boss","d10","e10",
- "f10","g10","h10","i10","j10",
- "k10","l10","m10","n10","o10"];
-
- //Row 3:
- //Cat11: Tool
-let cate11 =
-["Ride an elevator","b11","c11","d11","e11",
- "f11","g11","h11","i11","j11",
- "k11","l11","m611","n11","o11"];
-
- //Cat12: Health
-let cate12 =
-["Increase max health","Obtain an extra life","c12","d12","e12",
- "f12","g12","h12","i12","j12",
- "k12","l12","m12","n12","o12"];
-
- //Cat13: Music
-let cate13 =
-["Obtain a musical instrument","Play any song","c13","d13","e13",
- "f13","g13","h13","i13","j13",
- "k13","l13","m13","n13","o13"];
-
- //Cat14: Shopping
-let cate14 =
-["Buy an item from a shop","Buy any type of potion","Buy any healing item","d14","e14",
- "f14","g14","h14","i14","j14",
- "k14","l14","m14","n14","o14"];
-
- //Cat15: Enemies
-let cate15 =
-["a15","b15","c15","d15","e15",
- "f15","g15","h15","i15","j15",
- "k15","l15","m15","n15","o15"];
-
- //Row: 4
- //Cat16: Ability
-let cate16 =
-["Use an ability connected to fire","Use an ability connected to ice","Use an ability connected to lightning","Use any magic","e16",
- "f16","g16","h16","i16","j16",
- "k16","l16","m16","n16","o16"];
-
- //Cat17: Meet
-let cate17 =
-["Meet a merchant","Rescue any npc","c17","d17","e17",
- "f17","g17","h17","i17","j17",
- "k17","l17","m17","n17","o17"];
-
- //Cat18: Secret
-let cate18 =
-["a18","b18","c18","d18","e18",
- "f18","g18","h18","i18","j18",
- "k18","l18","m18","n18","o18"];
-
- //Cat19: Veicle
-let cate19 =
-["Ride any animal","Obtain a new vehicle","c19","d19","e19",
- "f19","g19","h19","i19","j19",
- "k19","l19","m19","n19","o19"];
-
- //Cat20: Clothes
-let cate20 =
-["a20","b20","c20","d20","e20",
- "f20","g20","h20","i20","j20",
- "k20","l20","m20","n20","o20"];
-
- //Row: 5
- //Cat21: Melee
-let cate21 =
-["Beat a boss with only ranged attacks","Obtain a hammer type weapon","c21","d21","e21",
- "f21","g21","h21","i21","j21",
- "k21","l21","m21","n21","o21"];
-
- //Cat22: Ranged
-let cate22 =
-["Beat a boss without shooting","Increase your max ammo","Pick up some ammunition","d22","e22",
- "f22","g22","h22","i22","j22",
- "k22","l22","m22","n22","o22"];
-
- //Cat23: Level
-let cate23 =
-["Complete a tutorial","b23","c23","d23","e23",
- "f23","g23","h23","i23","j23",
- "k23","l23","m23","n23","o23"];
-
- //Cat24: Traps
-let cate24 =
-["a24","b24","c24","d24","e24",
- "f24","g24","h24","i24","j24",
- "k24","l24","m24","n24","o24"];
-
- //Cat25: Meta
-let cate25 =
-["Change your game language to a different alphabet","Level up to level 5","Make a new character","d25","e25",
- "f25","g25","h25","i25","j25",
- "k25","l25","m25","n25","o25"];
- //End of difficulty
-
+let cate1 = ["Learn how to dig", "Read a book", "Learn how to grow in size", "Learn a new crafting recipe", "Learn how to shrink in size"];
+let cate2 = ["Commit sudoko (kill urself)", "Kill a knight", "Kill a spider", "Kill a zombie", "Kill any flying enemy"];
+let cate3 = ["Collect 100 golden things", "Obtain a card", "Obtain a fruit", "Harvest some plants", "Obtain a key"];
+let cate4 = ["Obtain a map", "Reach any checkpoint", "Save your game", "Save with full health", "Create a backup save"];
+let cate5 = ["Defeat any enemy", "Affect an enemy with a debuff", "Perform a 3-hit combo", "Block an attack", "Dodge an attack perfectly"];
+let cate6 = ["Touch Grass", "Enter a forest", "Enter a jungle", "Enter a castle", "Enter a desert"];
+let cate7 = ["Glitch out of bounds", "Item dupe", "T-pose glitch", "Animation cancel", "Clip through a door"];
+let cate8 = ["Gain an extra life", "Lose a life to fall damage", "Revive an ally", "Find a 1-up mushroom", "Have exactly 0 lives left"];
+let cate9 = ["Look at a woman", "Look at a stone statue", "Look at a metal statue", "Look at the sun (praise optional)", "Observe a sleeping enemy"];
+let cate10 = ["Kill any boss", "Beat any non-tutorial boss", "Defeat a tutorial boss", "Defeat a boss in under 5 minutes", "Defeat a boss using the environment"];
+let cate11 = ["Ride an elevator", "Obtain a hammer", "Obtain a wrench", "Use a lockpick", "Use a grappling hook"];
+let cate12 = ["Increase max health", "Obtain an extra life", "Buy any healing item", "Die", "Increase your defence"];
+let cate13 = ["Obtain a musical instrument", "Play any song", "Listen to the title screen music", "Use any magic", "Find a jukebox"];
+let cate14 = ["Buy an item from a shop", "Buy any type of potion", "Sell an item", "Change the background music", "Buy armor"];
+let cate15 = ["Befriend an enemy", "Stun an enemy", "Interrupt an enemy attack", "Get spotted by a guard", "Taunt an enemy"];
+let cate16 = ["Use an ability connected to fire", "Use an ability connected to ice", "Use an ability connected to lightning", "Double jump", "Dash"];
+let cate17 = ["Meet a merchant", "Rescue any npc", "Meet a ghost", "Meet a king", "Meet a beggar"];
+let cate18 = ["Reveal a secret passage", "Pass through a fake wall", "Fall through a fake floor", "Find a hidden chest", "Discover a secret room"];
+let cate19 = ["Ride any animal", "Obtain a new vehicle", "Ride a boat or raft", "Ride a train", "Drive a car"];
+let cate20 = ["Change your hat", "Equip a matching armor set", "Dye your clothes", "Wear a disguise", "Unequip all clothes"];
+let cate21 = ["Defeat an enemy with melee only", "Obtain a hammer type weapon", "Kill an enemy with a sword", "Use explosives", "Kill a skeleton"];
+let cate22 = ["Beat a boss with only ranged attacks", "Increase your max ammo", "Pick up some ammunition", "Reload any weapon", "Pick up any gun"];
+let cate23 = ["Complete a tutorial", "Level up to level 5", "Reach level 10", "Complete a side quest", "Complete the first level"];
+let cate24 = ["Trigger a tripwire", "Disarm a trap", "Trigger a trap on purpose", "Read the credits", "Survive a trap"];
+let cate25 = ["Change your game language to a different alphabet", "Pause the game during a cutscene", "Make a new character", "Take a screenshot", "Spam the crouch button"];
 
 /*Difficulty: Normal*/
-
- //Row 1:
- //Cat1: Learn
-let catn1 =
-["a1","b1","c1","d1","e1",
- "f1","g1","h1","i1","j1",
- "k1","l1","m1","n1","o1"];
-
- //Cat2: Kill
-let catn2 =
-["Kill a mummy","Kill an enemy while submerged","c2","d2","e2",
- "f2","g2","h2","i2","j2",
- "k2","l2","m2","n2","o2"];
-
- //Cat3: Obtain
-let catn3 =
-["Obtain a vegetable","Obtain explosives","c3","d3","e3",
- "f3","g3","h3","i3","j3",
- "k3","l3","m3","n3","o3"];
-
- //Cat4: Saving
-let catn4 =
-["a4","b4","c4","d4","e4",
- "f4","g4","h4","i4","j4",
- "k4","l4","m4","n4","o4"];
-
- //Cat5: Fighting
-let catn5 =
-["Temporarily stun an enemy","Defeat an enemy using only kicks","Defeat an enemy using only punches","d5","e5",
- "f5","g5","h5","i5","j5",
- "k5","l5","m5","n5","o5"];
-
- //Row 2:
- //Cat6: Area
-let catn6 =
-["Touch a cloud","Enter a volcano","Enter outer space","d6","e6",
- "f6","g6","h6","i6","j6",
- "k6","l6","m6","n6","o6"];
-
- //Cat7: Glitches
-let catn7 =
-["a7","b7","c7","d7","e7",
- "f7","g7","h7","i7","j7",
- "k7","l7","m7","n7","o7"];
-
- //Cat8: Lives
-let catn8 =
-["a8","b8","c8","d8","e8",
- "f8","g8","h8","i8","j8",
- "k8","l8","m8","n8","o8"];
-
- //Cat9: Observe
-let catn9 =
-["a9","b9","c9","d9","e9",
- "f9","g9","h9","i9","j9",
- "k9","l9","m9","n9","o9"];
-
- //Cat10: Boss
-let catn10 =
-["Kill a boss with throwing weapons","b10","c10","d10","e10",
- "f10","g10","h10","i10","j10",
- "k10","l10","m10","n10","o10"];
-
- //Row 3:
- //Cat11: Tool
-let catn11 =
-["Turn on a light","b11","c11","d11","e11",
- "f11","g11","h11","i11","j11",
- "k11","l11","m611","n11","o11"];
-
- //Cat12: Health
-let catn12 =
-["Obtain 3 extra lives","Drink a healing potion","c12","d12","e12",
- "f12","g12","h12","i12","j12",
- "k12","l12","m12","n12","o12"];
-
- //Cat13: Music
-let catn13 =
-["a13","b13","c13","d13","e13",
- "f13","g13","h13","i13","j13",
- "k13","l13","m13","n13","o13"];
-
- //Cat14: Shopping
-let catn14 =
-["Buy 3 different items from a shop","b14","c14","d14","e14",
- "f14","g14","h14","i14","j14",
- "k14","l14","m14","n14","o14"];
-
- //Cat15: Enemies
-let catn15 =
-["Get grabbed by an enemy","b15","c15","d15","e15",
- "f15","g15","h15","i15","j15",
- "k15","l15","m15","n15","o15"];
-
- //Row: 4
- //Cat16: Ability
-let catn16 =
-["a16","b16","c16","d16","e16",
- "f16","g16","h16","i16","j16",
- "k16","l16","m16","n16","o16"];
-
- //Cat17: Meet
-let catn17 =
-["Meet a king","Meet a scientist","c17","d17","e17",
- "f17","g17","h17","i17","j17",
- "k17","l17","m17","n17","o17"];
-
- //Cat18: Secret
-let catn18 =
-["a18","b18","c18","d18","e18",
- "f18","g18","h18","i18","j18",
- "k18","l18","m18","n18","o18"];
-
- //Cat19: Veicle
-let catn19 =
-["a19","b19","c19","d19","e19",
- "f19","g19","h19","i19","j19",
- "k19","l19","m19","n19","o19"];
-
- //Cat20: Clothes
-let catn20 =
-["Upgrade your armour","Upgrade your shoes","c20","d20","e20",
- "f20","g20","h20","i20","j20",
- "k20","l20","m20","n20","o20"];
-
- //Row: 5
- //Cat21: Melee
-let catn21 =
-["Upgrade a sword","b21","c21","d21","e21",
- "f21","g21","h21","i21","j21",
- "k21","l21","m21","n21","o21"];
-
- //Cat22: Ranged
-let catn22 =
-["Upgrade a bow","Uprade a shotgun","c22","d22","e22",
- "f22","g22","h22","i22","j22",
- "k22","l22","m22","n22","o22"];
-
- //Cat23: Level
-let catn23 =
-["Change the water level","Complete an autoscroll section","Complete a bonus stage","Complete a stealth section (be stealthy)","e23",
- "f23","g23","h23","i23","j23",
- "k23","l23","m23","n23","o23"];
-
- //Cat24: Traps
-let catn24 =
-["a24","b24","c24","d24","e24",
- "f24","g24","h24","i24","j24",
- "k24","l24","m24","n24","o24"];
-
- //Cat25: Meta
-let catn25 =
-["Reach 100k points in anything","b25","c25","d25","e25",
- "f25","g25","h25","i25","j25",
- "k25","l25","m25","n25","o25"];
- //End of difficulty
-
+let catn1 = ["Learn an ability involving water", "Learn an ability involving fire", "Learn an ability involving electricity", "Learn a password", "Learn to fly"];
+let catn2 = ["Kill a mummy", "Kill an enemy while submerged", "Kill a floating hand", "Kill a floating skull", "Kill a ghost"];
+let catn3 = ["Obtain a vegetable", "Obtain explosives", "Obtain a rare artifact", "Obtain a legendary sword", "Obtain a piece of a map"];
+let catn4 = ["Save while poisoned", "Save with 1 HP", "Overwrite a save file", "Save after a boss fight", "Beat a level without saving"];
+let catn5 = ["Defeat an enemy using only kicks", "Defeat an enemy using only punches", "Stack 3 debuffs on one enemy", "Counter an attack", "Survive a 5-enemy ambush"];
+let catn6 = ["Touch a cloud", "Enter a volcano", "Enter outer space", "Climb a mountain", "Reach the top of a hill"];
+let catn7 = ["Become invisible", "Break the physics engine", "Out of bounds skip", "Duplicate an important item", "Find a dev texture"];
+let catn8 = ["Find a hidden life", "Sacrifice a life for an item", "Get revived", "Gain 5 lives in one level", "Finish a stage with 1 life left"];
+let catn9 = ["Observe a rare creature", "Watch an NPC routine", "Read an ancient tablet", "Inspect a painting", "Stare into the abyss"];
+let catn10 = ["Kill a boss with throwing weapons", "Kill an insect boss", "Kill a mechanical boss", "Kill a boss with at least 2 phases", "Defeat a boss without taking damage"];
+let catn11 = ["Turn on a light", "Use a flashlight", "Use a compass", "Use binoculars", "Use a tracker"];
+let catn12 = ["Obtain 3 extra lives", "Drink a healing potion", "Heal an NPC", "Increase your status resistance", "Heal using food only"];
+let catn13 = ["Play a minigame with music", "Unlock a new soundtrack", "Play an instrument perfectly", "Listen to an enemy's song", "Stop the music"];
+let catn14 = ["Buy 3 different items from a shop", "Obtain 100 of any currency", "Sell some loot", "Buy the most expensive item", "Barter with a merchant"];
+let catn15 = ["Get grabbed by an enemy", "Ground a flying enemy", "Capture a thief/criminal", "Encounter an evil version of yourself", "Lure an enemy into a trap"];
+let catn16 = ["Use a healing ability", "Use a time-slowing ability", "Use a mind control ability", "Use a teleport ability", "Use telekinesis"];
+let catn17 = ["Meet a king", "Meet a scientist", "Meet a betrayer", "Meet an alien", "Meet a god"];
+let catn18 = ["Reveal a secret passage", "Turn into an animal", "Discover an easter egg", "Find a hidden developer room", "Find a secret ending"];
+let catn19 = ["Ride a snowboard or a sled", "Complete a minecart section", "Ride a dragon", "Steal a vehicle", "Pilot an aircraft"];
+let catn20 = ["Upgrade your armour", "Upgrade your shoes", "Wear a disguise", "Wear a formal suit", "Change your hair"];
+let catn21 = ["Upgrade a sword", "Uprade a shotgun", "Defeat an armored enemy with melee", "Break an enemy's shield", "Kill a vampire"];
+let catn22 = ["Upgrade a bow", "Complete an autoscroll section", "Shoot a target from far away", "Get a headshot", "Ricochet a bullet"];
+let catn23 = ["Change the water level", "Reach level 25", "Complete a bonus stage", "Complete a stealth section", "Max out a skill"];
+let catn24 = ["Get hit by a boulder", "Push an enemy into a trap", "Dodge a swinging blade", "Survive a poison trap", "Disarm 5 traps"];
+let catn25 = ["Reach 100k points in anything", "Complete a level without killing any enemies", "Play without HUD for 10 minutes", "Finish a level perfectly", "Beat a time trial"];
 
 /*Difficulty: Hard*/
+let cath1 = ["Learn to teleport", "Manipulate time", "Manipulate gravity", "Learn all spells", "Learn to speak to animals"];
+let cath2 = ["Kill a dragon", "Kill a king", "Kill a shapeshifter", "Kill a god/deity", "Kill an invisible enemy"];
+let cath3 = ["Harvest wheat", "Obtain an endgame weapon", "Obtain all collectibles", "Obtain the true ending item", "Obtain every single item"];
+let cath4 = ["Save the game in a hostile area", "Complete the game without saving", "Save only 3 times in a run", "Corrupt a save file", "Delete your save file"];
+let cath5 = ["Escape from prison", "Survive a 1v10 fight", "Defeat enemies using only the environment", "Win a fight blindfolded", "Defeat the hardest enemy type"];
+let cath6 = ["Skip an autoscroller", "Fall from the sky", "Reach the bottom of the ocean", "Enter a parallel dimension", "Travel to the future/past"];
+let cath7 = ["Softlock the game", "Wrong warp", "Trigger an integer overflow", "Sequence break a major item", "Exploit a boss AI"];
+let cath8 = ["Complete a level without dying", "Obtain 5 extra lives", "Beat the game with 1 life", "Gain 99 lives", "Complete a deathless run"];
+let cath9 = ["Observe a celestial event", "Decipher a fictional language", "Watch all credits without skipping", "Observe a hidden cutscene", "Find all lore notes"];
+let cath10 = ["Kill 2 bosses without dying", "Kill a boss without getting hit", "Kill a boss without attacking", "Kill a boss with at least 3 phases", "Defeat a boss with the starting weapon"];
+let cath11 = ["Lower your max health", "Build a complex machine", "Create a custom weapon", "Use a grappling hook to kill", "Use every tool in the game"];
+let cath12 = ["Obtain 1000 of any currency", "Beat a boss with 1 HP left", "Never upgrade health", "Complete a pacifist run", "Beat the game without healing"];
+let cath13 = ["Kill 5 enemies with one explosive", "Unlock the sound test menu", "Find a hidden radio station", "Compose a song", "Sync your actions to the music"];
+let cath14 = ["Play the game with no sound", "Become a millionaire", "Rob a shopkeeper", "Sell your best weapon", "Ruin a merchant's business"];
+let cath15 = ["Buy out a shop's inventory", "Kill 3 enemies in one shot", "Pacify a hostile group", "Turn enemies against each other", "Survive an infinite enemy wave"];
+let cath16 = ["Defeat a giant enemy", "Rescue the princess!", "Use a forbidden magic", "Stop time", "Master every ability"];
+let cath17 = ["Find a mermaid", "Meet the creator/developer", "Meet your clone", "Meet a character from another game", "Meet the final boss early"];
+let cath18 = ["Access a secret world", "Find a glitched area", "Solve a secret puzzle", "Find the dev room", "Find a sequence break secret"];
+let cath19 = ["Complete a vehicle race", "Destroy a vehicle", "Fly a spaceship", "Complete an escort mission", "Ride a mythical creature"];
+let cath20 = ["Obtain the rarest outfit", "Craft a legendary armor", "Complete a no-armor run", "Equip cursed gear", "Wear the most ridiculous outfit"];
+let cath21 = ["Defeat a boss using only melee", "Defeat an enemy with a parry", "Defeat an army with a sword", "Defeat 3 bosses", "Melee a flying enemy"];
+let cath22 = ["Hit a moving target from far", "Complete a sniper mission", "Complete a level using only projectiles", "Don't miss a single shot", "Snipe an enemy mid-air"];
+let cath23 = ["Complete a world", "Reach the max level", "Unlock a secret character", "Complete the hardest difficulty", "Complete the final level"];
+let cath24 = ["Survive a trap gauntlet", "Use a trap to kill a boss", "Disarm a trap blindfolded", "Survive a room full of lasers", "Build a trap"];
+let cath25 = ["Finish a game", "100% completion", "Speedrun a level", "Beat a game under 2 hours", "No hit run of a stage"];
 
- //Row 1:
- //Cat1: Learn
-let cath1 =
-["a1","b1","c1","d1","e1",
- "f1","g1","h1","i1","j1",
- "k1","l1","m1","n1","o1"];
 
- //Cat2: Kill
-let cath2 =
-["Kill a dragon","b2","c2","d2","e2",
- "f2","g2","h2","i2","j2",
- "k2","l2","m2","n2","o2"];
-
- //Cat3: Obtain
-let cath3 =
-["Collect 100 golden things","Obtain a card","Obtain a fruit","d3","e3",
- "f3","g3","h3","i3","j3",
- "k3","l3","m3","n3","o3"];
-
- //Cat4: Saving
-let cath4 =
-["Obtain a map","Reach any checkpoint","Save your game","d4","e4",
- "f4","g4","h4","i4","j4",
- "k4","l4","m4","n4","o4"];
-
- //Cat5: Fighting
-let cath5 =
-["a5","b5","c5","d5","e5",
- "f5","g5","h5","i5","j5",
- "k5","l5","m5","n5","o5"];
-
- //Row 2:
- //Cat6: Area
-let cath6 =
-["Escape from prison","b6","c6","d6","e6",
- "f6","g6","h6","i6","j6",
- "k6","l6","m6","n6","o6"];
-
- //Cat7: Glitches
-let cath7 =
-["a7","b7","c7","d7","e7",
- "f7","g7","h7","i7","j7",
- "k7","l7","m7","n7","o7"];
-
- //Cat8: Lives
-let cath8 =
-["a8","b8","c8","d8","e8",
- "f8","g8","h8","i8","j8",
- "k8","l8","m8","n8","o8"];
-
- //Cat9: Observe
-let cath9 =
-["a9","b9","c9","d9","e9",
- "f9","g9","h9","i9","j9",
- "k9","l9","m9","n9","o9"];
-
- //Cat10: Boss
-let cath10 =
-["Kill 2 bosses without dying","Kill a boss without getting hit","Kill a boss without attacking","d10","e10",
- "f10","g10","h10","i10","j10",
- "k10","l10","m10","n10","o10"];
-
- //Row 3:
- //Cat11: Tool
-let cath11 =
-["a11","b11","c11","d11","e11",
- "f11","g11","h11","i11","j11",
- "k11","l11","m611","n11","o11"];
-
- //Cat12: Health
-let cath12 =
-["Lower your max health","b12","c12","d12","e12",
- "f12","g12","h12","i12","j12",
- "k12","l12","m12","n12","o12"];
-
- //Cat13: Music
-let cath13 =
-["a13","b13","c13","d13","e13",
- "f13","g13","h13","i13","j13",
- "k13","l13","m13","n13","o13"];
-
- //Cat14: Shopping
-let cath14 =
-["a14","b14","c14","d14","e14",
- "f14","g14","h14","i14","j14",
- "k14","l14","m14","n14","o14"];
-
- //Cat15: Enemies
-let cath15 =
-["a15","b15","c15","d15","e15",
- "f15","g15","h15","i15","j15",
- "k15","l15","m15","n15","o15"];
-
- //Row: 4
- //Cat16: Ability
-let cath16 =
-["a16","b16","c16","d16","e16",
- "f16","g16","h16","i16","j16",
- "k16","l16","m16","n16","o16"];
-
- //Cat17: Meet
-let cath17 =
-["a17","b17","c17","d17","e17",
- "f17","g17","h17","i17","j17",
- "k17","l17","m17","n17","o17"];
-
- //Cat18: Secret
-let cath18 =
-["a18","b18","c18","d18","e18",
- "f18","g18","h18","i18","j18",
- "k18","l18","m18","n18","o18"];
-
- //Cat19: Veicle
-let cath19 =
-["a19","b19","c19","d19","e19",
- "f19","g19","h19","i19","j19",
- "k19","l19","m19","n19","o19"];
-
- //Cat20: Clothes
-let cath20 =
-["a20","b20","c20","d20","e20",
- "f20","g20","h20","i20","j20",
- "k20","l20","m20","n20","o20"];
-
- //Row: 5
- //Cat21: Melee
-let cath21 =
-["a21","b21","c21","d21","e21",
- "f21","g21","h21","i21","j21",
- "k21","l21","m21","n21","o21"];
-
- //Cat22: Ranged
-let cath22 =
-["a22","b22","c22","d22","e22",
- "f22","g22","h22","i22","j22",
- "k22","l22","m22","n22","o22"];
-
- //Cat23: Level
-let cath23 =
-["a23","b23","c23","d23","e23",
- "f23","g23","h23","i23","j23",
- "k23","l23","m23","n23","o23"];
-
- //Cat24: Traps
-let cath24 =
-["a24","b24","c24","d24","e24",
- "f24","g24","h24","i24","j24",
- "k24","l24","m24","n24","o24"];
-
- //Cat25: Meta
-let cath25 =
-["a25","b25","c25","d25","e25",
- "f25","g25","h25","i25","j25",
- "k25","l25","m25","n25","o25"];
- //End of difficulty
 
 //Functions for selecting the type of card
 //Short
