@@ -702,15 +702,70 @@ body.site-locked .countdown-overlay {
 
 .card-page {
   padding-top: clamp(18px, 4vw, 36px);
+  display: grid;
+  gap: 18px;
 }
 
-.card-header {
-  display: flex;
+.card-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 1.2fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
   padding: 18px 20px;
   animation: fadeUp 0.7s ease both;
+}
+
+.card-toolbar__timer-block {
+  display: grid;
+  gap: 6px;
+}
+
+.card-timer {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(2.1rem, 5vw, 3.8rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--accent-2);
+  text-shadow: 0 0 22px rgba(79, 141, 255, 0.2);
+}
+
+.card-timer.is-ended {
+  color: #ffcf82;
+  text-shadow: 0 0 22px rgba(255, 199, 112, 0.2);
+}
+
+.card-end-button {
+  width: min(360px, 100%);
+  justify-self: center;
+  min-height: 58px;
+  padding-inline: 28px;
+  font-size: 1.02rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card-delete-button {
+  justify-self: end;
+}
+
+.card-board {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  animation: fadeUp 0.8s ease both;
+  animation-delay: 0.08s;
+}
+
+.card-meta-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card-title {
+  font-size: clamp(1.9rem, 4vw, 3rem);
 }
 
 .card-meta {
@@ -721,12 +776,6 @@ body.site-locked .countdown-overlay {
   font-weight: 700;
 }
 
-.board-panel {
-  padding: 18px;
-  animation: fadeUp 0.8s ease both;
-  animation-delay: 0.08s;
-}
-
 .board-wrap {
   overflow: auto;
 }
@@ -734,26 +783,30 @@ body.site-locked .countdown-overlay {
 #bingo {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 10px;
+  border-spacing: 8px;
 }
 
 #bingo td {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text);
-  border: 1px solid rgba(19, 31, 53, 0.08);
+  border: 1px solid rgba(95, 147, 255, 0.16);
   border-radius: 18px;
   padding: 18px 14px;
   text-align: center;
   font-weight: 700;
+  line-height: 1.45;
+  word-break: break-word;
   vertical-align: middle;
-  box-shadow: inset 0 -1px 0 rgba(15, 23, 42, 0.03);
-  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
 }
 
 #bingo td:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-  border-color: rgba(37, 99, 235, 0.22);
+  box-shadow: 0 12px 24px rgba(3, 8, 20, 0.15);
+  border-color: rgba(79, 141, 255, 0.34);
+  background: rgba(79, 141, 255, 0.08);
 }
 
 #bingo td.popout {
@@ -761,12 +814,68 @@ body.site-locked .countdown-overlay {
   border: 0;
   box-shadow: none;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   letter-spacing: 0.08em;
 }
 
 #bingo td.popout {
   padding-inline: 6px;
+}
+
+.card-penalties {
+  display: grid;
+  gap: 12px;
+  padding: 18px 20px 20px;
+  animation: fadeUp 0.86s ease both;
+  animation-delay: 0.14s;
+}
+
+.card-penalties__header {
+  display: grid;
+  gap: 4px;
+}
+
+.card-penalties__title {
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+}
+
+.card-penalties__empty {
+  margin: 0;
+  color: var(--muted);
+}
+
+.selected-penalties-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.selected-penalty-item {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(95, 147, 255, 0.16);
+}
+
+.selected-penalty-item strong {
+  color: var(--text);
+}
+
+.selected-penalty-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.selected-penalty-item span {
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .countdown-overlay {
@@ -980,6 +1089,21 @@ body.site-locked .countdown-overlay {
     grid-template-columns: 1fr;
   }
 
+  .card-toolbar {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+  }
+
+  .card-end-button,
+  .card-delete-button {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .card-meta-bar {
+    align-items: flex-start;
+  }
+
   .points-spent {
     justify-self: start;
   }
@@ -992,8 +1116,9 @@ body.site-locked .countdown-overlay {
 
   .landing-hero,
   .settings-panel,
-  .board-panel,
-  .card-header,
+  .card-toolbar,
+  .card-board,
+  .card-penalties,
   .landing-footer {
     padding: 18px;
   }
@@ -1017,6 +1142,10 @@ body.site-locked .countdown-overlay {
   #bingo td {
     padding: 14px 12px;
     border-radius: 16px;
+  }
+
+  .card-meta {
+    justify-items: start;
   }
 
   .countdown-card {

@@ -11,19 +11,30 @@
 </head>
 <body data-page="card">
   <main class="page card-page">
-    <header class="card-header panel">
-      <div>
-        <p class="eyebrow">Speedrun Bingo</p>
-        <h1 class="section-title">Generated card</h1>
+    <section class="card-toolbar panel" aria-label="Speedrun controls">
+      <div class="card-toolbar__timer-block">
+        <p class="eyebrow">Speedrun timer</p>
+        <div class="card-timer" id="speedrunTimer" aria-live="polite">00:00:00</div>
       </div>
-      <div class="card-meta">
-        <span id="Tdtype">Normal</span>
-        <span id="cardSeedLabel">Seed: random</span>
-      </div>
-      <a class="back-link" href="bingo-settings.html">Back to settings</a>
-    </header>
 
-    <section class="board-panel panel">
+      <button class="primary-button card-end-button" id="endSpeedrunButton" type="button">END SPEEDRUN!</button>
+
+      <button class="secondary-button card-delete-button" id="deleteSpeedrunButton" type="button">Delete speedrun</button>
+    </section>
+
+    <section class="card-board panel">
+      <div class="card-meta-bar">
+        <div>
+          <p class="section-label">Bingo table</p>
+          <h1 class="section-title card-title">Generated card</h1>
+        </div>
+
+        <div class="card-meta">
+          <span id="Tdtype">Normal</span>
+          <span id="cardSeedLabel">Seed: random</span>
+        </div>
+      </div>
+
       <div class="board-wrap">
         <table id="bingo" aria-label="Speedrun bingo board">
           <tbody>
@@ -82,6 +93,17 @@
           </tbody>
         </table>
       </div>
+    </section>
+
+    <section class="card-penalties panel">
+      <div class="card-penalties__header">
+        <p class="section-label">Selected penalties</p>
+        <h2 class="section-title card-penalties__title">Penalty summary</h2>
+      </div>
+
+      <p class="card-penalties__empty" id="selectedPenaltiesEmpty">No penalties selected for this run.</p>
+
+      <ul class="selected-penalties-list" id="selectedPenaltiesList" aria-label="Selected penalties"></ul>
     </section>
   </main>
 </body>

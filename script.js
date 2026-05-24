@@ -205,7 +205,7 @@ function readQueryParams() {
   return new URLSearchParams(window.location.search);
 }
 
-function buildCardUrl({ seed, difficulty }) {
+function buildCardUrl({ seed, difficulty, penalties }) {
   const params = new URLSearchParams();
 
   if (seed) {
@@ -214,6 +214,10 @@ function buildCardUrl({ seed, difficulty }) {
 
   if (difficulty && difficulty !== "normal") {
     params.set("difficulty", difficulty);
+  }
+
+  if (Array.isArray(penalties) && penalties.length > 0) {
+    params.set("penalties", penalties.join(","));
   }
 
   const query = params.toString();
@@ -291,6 +295,17 @@ function getDifficultyCode(difficultyValue) {
 
 function formatSeed({ difficulty }) {
   return `${getDifficultyCode(difficulty)}${randomSeedToken()}`;
+}
+
+function formatRunTime(elapsedMs) {
+  const totalSeconds = Math.floor(elapsedMs / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return [hours, minutes, seconds]
+    .map((value) => String(value).padStart(2, "0"))
+    .join(":");
 }
 
 function writeToClipboard(value) {
@@ -660,6 +675,7 @@ function initSettingsPage() {
 
   const handleStart = () => {
     const seedValue = normalizeSeed(currentSeed || generatedSeedOutput.value || formatSeed({ difficulty: selectedDifficulty }));
+    const selectedPenaltyIds = getSelectedPenalties().map((penalty) => penalty.id);
 
     if (!isValidSeed(seedValue)) {
       if (seedFeedback) {
@@ -675,7 +691,7 @@ function initSettingsPage() {
     lockControls(true, ".difficulty-button, [data-penalty-row], #generateSeedButton, #copySeedButton, #settingsStartButton");
 
     startSettingsCountdown(() => {
-      navigateTo(buildCardUrl({ seed: seedValue }));
+      navigateTo(buildCardUrl({ seed: seedValue, penalties: selectedPenaltyIds }));
     });
   };
 
@@ -699,10 +715,22 @@ function initCardPage() {
   const query = readQueryParams();
   const seedValue = normalizeSeed(query.get("seed"));
   const difficultyValue = query.get("difficulty") ?? "normal";
+  const penaltyIds = (query.get("penalties") ?? "")
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
   const seedInfo = parseSeed(seedValue, difficultyValue);
   const difficulty = getDifficultyConfig(seedInfo.difficulty);
+  const selectedPenalties = [...new Set(penaltyIds)]
+    .map((penaltyId) => PENALTIES.find((penalty) => penalty.id === penaltyId))
+    .filter(Boolean);
   const seedLabel = document.getElementById("cardSeedLabel");
   const difficultyLabel = document.getElementById("Tdtype");
+  const timerLabel = document.getElementById("speedrunTimer");
+  const endButton = document.getElementById("endSpeedrunButton");
+  const deleteButton = document.getElementById("deleteSpeedrunButton");
+  const selectedPenaltiesList = document.getElementById("selectedPenaltiesList");
+  const selectedPenaltiesEmpty = document.getElementById("selectedPenaltiesEmpty");
 
   if (!data) {
     return;
@@ -714,6 +742,74 @@ function initCardPage() {
 
   if (seedLabel) {
     seedLabel.textContent = seedInfo.seed ? `Seed: ${seedInfo.seed}` : "Seed: random";
+  }
+
+  if (selectedPenaltiesList) {
+    if (selectedPenalties.length === 0) {
+      selectedPenaltiesList.innerHTML = "";
+      if (selectedPenaltiesEmpty) {
+        selectedPenaltiesEmpty.hidden = false;
+      }
+    } else {
+      selectedPenaltiesList.innerHTML = selectedPenalties
+        .map((penalty) => `
+          <li class="selected-penalty-item">
+            <strong>${penalty.name}</strong>
+            <p class="selected-penalty-description">${penalty.description}</p>
+            <span>Cost ${penalty.cost}</span>
+          </li>
+        `)
+        .join("");
+
+      if (selectedPenaltiesEmpty) {
+        selectedPenaltiesEmpty.hidden = true;
+      }
+    }
+  }
+
+  let timerStartedAt = window.performance.now();
+  let timerFrame = window.setInterval(() => {
+    if (!timerLabel) {
+      return;
+    }
+
+    timerLabel.textContent = formatRunTime(window.performance.now() - timerStartedAt);
+  }, 250);
+
+  if (timerLabel) {
+    timerLabel.textContent = "00:00:00";
+  }
+
+  if (endButton) {
+    endButton.addEventListener("click", () => {
+      if (timerFrame !== null) {
+        window.clearInterval(timerFrame);
+        timerFrame = null;
+      }
+
+      if (timerLabel) {
+        timerLabel.classList.add("is-ended");
+      }
+
+      endButton.disabled = true;
+      endButton.textContent = "SPEEDRUN ENDED";
+    });
+  }
+
+  if (deleteButton) {
+    deleteButton.addEventListener("click", () => {
+      const shouldDelete = window.confirm("Delete this speedrun and return to settings?");
+
+      if (!shouldDelete) {
+        return;
+      }
+
+      if (timerFrame !== null) {
+        window.clearInterval(timerFrame);
+      }
+
+      navigateTo("bingo-settings.html");
+    });
   }
 
   const goals = generateBoard(data[difficulty.key], seedInfo.seed);
