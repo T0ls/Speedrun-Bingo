@@ -1,141 +1,1025 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
 
-:root{
-  /* Dark blue high-contrast palette */
-  --bg: #041026; /* very dark navy */
-  --bg-2: #071836; /* deep blue gradient */
-  --card-bg: #06203a; /* panel/card base */
-  --muted: #a9bfd6; /* secondary text */
-  --text: #eaf6ff; /* main text */
-  --accent: #0fb3ff; /* bright cyan accent */
-  --accent-2: #61d0ff; /* lighter cyan */
-  --accent-strong: #ffffff; /* pure white for max contrast */
-  --border: rgba(255,255,255,0.06);
-  --glass: rgba(255,255,255,0.02);
-  --radius:12px;
+:root {
+  --bg: #07101f;
+  --bg-2: #0b1630;
+  --surface: rgba(9, 16, 32, 0.58);
+  --surface-strong: rgba(11, 19, 38, 0.82);
+  --surface-soft: rgba(76, 135, 255, 0.08);
+  --border: rgba(95, 147, 255, 0.2);
+  --text: #f2f7ff;
+  --muted: #9fb4d6;
+  --accent: #4f8dff;
+  --accent-2: #cfe0ff;
+  --shadow: 0 18px 48px rgba(3, 8, 20, 0.34);
+  --radius: 20px;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-  background: linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 70%);
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+* {
+  box-sizing: border-box;
 }
 
-#wrap{padding:32px 20px}
-.container{
-  max-width:1100px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns: 1fr 340px;
-  gap:28px;
-  align-items:start;
+html,
+body {
+  min-height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-/* Side panel */
-#about_bingo{
-  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.06));
-  border-radius:var(--radius);
-  padding:18px;
-  box-shadow: 0 10px 30px rgba(2,6,20,0.7);
-  border-left:4px solid var(--accent);
-  color:var(--text);
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
-/* Headings and links across the page */
-h1, h2, h3, h4{
-  color:var(--accent-strong);
-  margin-top:0;
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(79, 141, 255, 0.12), transparent 22%),
+    radial-gradient(circle at top left, rgba(79, 141, 255, 0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.04), transparent 24%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a{color:var(--accent);text-decoration:none;font-weight:600}
-a:hover{text-decoration:underline;color:var(--accent-2)}
-
-/* Emphasize popouts and labels */
-.popout, .popout1{background:transparent;color:var(--accent-2);font-weight:800;border-left:3px solid var(--border);padding-left:10px}
-
-/* Bingo cells: subtle Arch blue tint */
-table#bingo td{background: linear-gradient(180deg, rgba(5,20,40,0.3), rgba(6,18,32,0.2));padding:18px;text-align:center;border-radius:10px;min-width:68px;min-height:56px;vertical-align:middle;color:var(--text);font-weight:700;box-shadow:inset 0 -6px 18px rgba(2,6,18,0.6);border:1px solid var(--border)}
-
-/* Selected / active look (if JS toggles classes later) */
-.active-cell{background:linear-gradient(180deg, rgba(15,179,255,0.18), rgba(97,208,255,0.06));color:var(--text);border-color:rgba(15,179,255,0.35)}
-
-/* Buttons accent consistency */
-.sortButton{box-shadow:0 8px 22px rgba(15,179,255,0.12)}
-
-/* Lists and rules */
-ul li{margin:6px 0}
-
-/* Small screens: ensure side panel stands out */
-@media (max-width:1000px){
-  #about_bingo{border-left:0;border-top:4px solid var(--accent);}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(145, 179, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(145, 179, 255, 0.12) 1px, transparent 1px),
+    radial-gradient(circle at 50% 34%, rgba(79, 141, 255, 0.1), transparent 0 22%, rgba(79, 141, 255, 0.05) 38%, transparent 62%);
+  background-size: 84px 84px, 84px 84px, 100% 100%;
+  background-position: 0 0, 0 0, center center;
+  opacity: 0.34;
+  transform: perspective(900px) translateZ(0);
+  will-change: background-position, transform, opacity;
+  animation: landingPageGridDrift 6.4s linear infinite;
 }
 
-.heading{margin:0 0 8px 0;font-weight:700;color:var(--accent)}
-.subheading{margin:0;color:var(--muted);font-size:0.95rem}
-.sideheading{color:var(--accent-3);margin:0 0 12px 0}
-
-.resulttitle{margin-bottom:8px}
-
-#bingoPage{
-  background: var(--card);
-  border-radius:var(--radius);
-  padding:20px;
-  box-shadow: 0 10px 30px rgba(8,10,30,0.65);
-  background-image: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(79, 141, 255, 0.18), transparent 0 10%, rgba(79, 141, 255, 0.08) 18%, rgba(79, 141, 255, 0.03) 30%, transparent 52%),
+    radial-gradient(circle at 50% 32%, rgba(79, 141, 255, 0.16), transparent 0 14%, rgba(79, 141, 255, 0.06) 26%, transparent 48%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.9;
+  filter: blur(24px);
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  animation: landingPageGlowPulse 3.2s ease-in-out infinite;
 }
 
-/* Buttons */
-.sortButton{
-  background:linear-gradient(90deg,var(--accent) 0%, var(--accent-2) 80%);
-  border:0;color:var(--accent-strong);padding:10px 14px;border-radius:10px;
-  font-weight:700;margin:6px;cursor:pointer;transition:transform .12s ease,box-shadow .12s;border:1px solid rgba(255,255,255,0.04);
-}
-.sortButton:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(2,8,20,0.7)}
-
-.seed-row{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;margin:12px 0}
-
-.seed-row label{color:var(--muted);font-weight:700}
-
-.seed-row input{
-  width:100%;
-  background:rgba(6,18,32,0.65);
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:10px 12px;
-  font:inherit;
-  box-sizing:border-box;
+body.site-locked {
+  overflow: hidden;
 }
 
-.seed-row input:focus{outline:2px solid rgba(15,179,255,0.25);border-color:rgba(15,179,255,0.4)}
-
-/* Bingo table modern look */
-table#bingo{width:100%;border-collapse:separate;border-spacing:10px}
-table#bingo td{background: linear-gradient(180deg, rgba(8,26,48,0.24), rgba(6,18,32,0.18));padding:18px;text-align:center;border-radius:10px;min-width:68px;min-height:56px;vertical-align:middle;color:var(--text);font-weight:700;box-shadow:inset 0 -6px 18px rgba(2,6,18,0.6);border:1px solid var(--border)}
-
-table#bingo tr td.popout, table#bingo tr td.popout1{background:transparent;color:var(--muted);font-weight:700;min-width:96px}
-table#bingo td.popout{font-size:0.95rem}
-
-/* Hover and selection */
-table#bingo td:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(3,7,25,0.85);transition:all .12s}
-
-/* Penalty table slightly different tone */
-.popout1{color:var(--muted)}
-
-/* Responsive: stack columns */
-@media (max-width:1000px){
-  .container{grid-template-columns:1fr}
-  table#bingo{display:block;overflow:auto;white-space:nowrap}
+body.site-locked .page {
+  pointer-events: none;
+  user-select: none;
 }
 
-/* Accessibility */
-button.sortButton:focus, .sortButton:active{outline:2px solid rgba(255,255,255,0.06);box-shadow:0 0 0 4px rgba(96,165,250,0.08)}
+body.site-locked .countdown-overlay {
+  pointer-events: auto;
+}
 
-/* Small tweaks for lists and paragraphs */
-ul{color:var(--muted)}
-.note{background:var(--glass);padding:8px 10px;border-radius:8px;color:var(--muted);font-weight:600;border:1px solid rgba(255,255,255,0.02)}
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(18px, 3vw, 36px);
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius);
+}
+
+.eyebrow,
+.section-label {
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.section-title,
+.landing-title {
+  margin: 0;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: -0.04em;
+  color: var(--accent-2);
+}
+
+.landing-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.landing-hero {
+  position: relative;
+  isolation: isolate;
+}
+
+.landing-hero {
+  width: min(920px, 100%);
+  padding: clamp(28px, 5vw, 52px);
+  text-align: center;
+  animation: fadeUp 0.7s ease both;
+}
+
+.landing-kicker {
+  margin: 0;
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.landing-title {
+  font-size: clamp(3.8rem, 11vw, 7.8rem);
+  line-height: 0.92;
+  margin: 8px auto 0;
+  color: #4f8dff;
+  text-shadow: 0 0 30px rgba(79, 141, 255, 0.28);
+}
+
+.landing-line {
+  width: min(760px, 94%);
+  height: 5px;
+  margin: 20px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0%, #3f7fff 18%, #87b1ff 50%, #3f7fff 82%, transparent 100%);
+  box-shadow: 0 0 26px rgba(79, 141, 255, 0.82);
+}
+
+.rules-heading {
+  margin: 24px 0 0;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.rules-grid {
+  width: min(760px, 100%);
+  margin: 18px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.rule-column {
+  text-align: left;
+  padding: 16px 18px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+}
+
+.rule-column h3 {
+  margin: 0;
+  text-align: center;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.rule-column--accent {
+  border-color: rgba(79, 141, 255, 0.32);
+  box-shadow: inset 0 0 0 1px rgba(79, 141, 255, 0.06);
+}
+
+.rule-column ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 0.9rem;
+}
+
+.landing-cta {
+  width: min(560px, 100%);
+  margin: 30px auto 0;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+
+.primary-button,
+.difficulty-button {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 22px;
+  background: linear-gradient(180deg, #4f8dff 0%, #3774f0 100%);
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(79, 141, 255, 0.35), 0 0 18px rgba(79, 141, 255, 0.18);
+}
+
+#personalizeButton {
+  width: 260px;
+}
+
+.primary-button--small {
+  min-height: 48px;
+  padding: 0 20px;
+}
+
+.primary-button:hover,
+.difficulty-button:hover {
+  transform: translateY(-2px);
+}
+
+.or-divider {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-transform: lowercase;
+}
+
+.seed-launcher {
+  width: min(420px, 100%);
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.seed-launcher__label {
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.seed-launcher__row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+}
+
+.seed-launcher input,
+.seed-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(79, 141, 255, 0.3);
+  background: rgba(9, 16, 32, 0.72);
+  color: var(--text);
+  font: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.seed-launcher input::placeholder,
+.seed-field input::placeholder {
+  color: #7e91b5;
+}
+
+.seed-launcher input:focus-visible,
+.seed-field input:focus-visible {
+  outline: 3px solid rgba(79, 141, 255, 0.18);
+  outline-offset: 2px;
+}
+
+.field-error {
+  min-height: 1.3em;
+  margin: 0;
+  color: #ff8f8f;
+  font-size: 0.95rem;
+}
+
+.settings-panel,
+.card-header,
+.board-panel,
+.landing-footer {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.landing-footer {
+  display: none;
+}
+
+.landing-copy {
+  max-width: 60ch;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.primary-button:focus-visible,
+.difficulty-button:focus-visible,
+.seed-field input:focus-visible,
+.secondary-button:focus-visible,
+.penalty-check input:focus-visible + span {
+  outline: 3px solid rgba(37, 99, 235, 0.18);
+  outline-offset: 2px;
+}
+
+.settings-page,
+.card-page {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  min-height: 100vh;
+}
+
+.settings-panel {
+  width: min(1040px, 100%);
+  margin: clamp(14px, 4vw, 40px) auto 0;
+  padding: clamp(22px, 4vw, 36px);
+  animation: fadeUp 0.7s ease both;
+}
+
+.settings-hero {
+  display: grid;
+  gap: 12px;
+}
+
+.settings-hero-actions {
+  margin-top: 8px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-2);
+  text-decoration: none;
+  font-weight: 800;
+  transition: color 0.16s ease, transform 0.12s ease;
+}
+
+.back-link__arrow {
+  display: inline-block;
+  transform: translateX(-2px);
+  transition: transform 0.18s ease, opacity 0.12s ease;
+  opacity: 0.9;
+}
+
+.back-link:hover,
+.back-link:focus {
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.back-link:hover .back-link__arrow,
+.back-link:focus .back-link__arrow {
+  transform: translateX(-6px);
+}
+
+.penalties-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.penalties-header-actions .points-spent {
+  margin: 0;
+  padding: 6px 10px;
+}
+
+.settings-title {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  color: #4f8dff;
+  text-shadow: 0 0 30px rgba(79, 141, 255, 0.24);
+}
+
+.settings-layout {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.settings-block {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(95, 147, 255, 0.16);
+}
+
+.settings-block__header {
+  display: grid;
+  gap: 4px;
+}
+
+.settings-block__title {
+  margin: 0;
+  color: var(--accent-2);
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: -0.03em;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+}
+
+.settings-block__header--row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.settings-block__hint {
+  color: var(--muted);
+  margin-top:5px;
+  font-size: 0.92rem;
+}
+
+.settings-block--penalties {
+  padding: 0;
+  overflow: clip;
+}
+
+.penalties-card__toggle {
+  width: 100%;
+  appearance: none;
+  border: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  color: inherit;
+  text-align: left;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.penalties-card__toggle:hover {
+  background: linear-gradient(180deg, rgba(79, 141, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.penalties-card__chevron {
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid rgba(191, 214, 255, 0.92);
+  border-bottom: 2px solid rgba(191, 214, 255, 0.92);
+  transform: rotate(45deg);
+  transition: transform 0.18s ease;
+  justify-self: end;
+}
+
+.settings-block--penalties.is-open .penalties-card__chevron {
+  transform: rotate(225deg);
+}
+
+.penalties-panel {
+  display: grid;
+  gap: 14px;
+  padding: 0 18px 18px;
+  overflow: clip;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: max-height 0.22s ease, opacity 0.2s ease, transform 0.22s ease, padding 0.22s ease;
+}
+
+.penalties-panel.is-expanded {
+  max-height: 420px;
+  opacity: 1;
+  transform: translateY(0);
+  padding: 0 18px 18px;
+}
+
+.penalties-table-wrap {
+  overflow: auto;
+  max-height: 260px;
+}
+
+.settings-block--penalties.is-open {
+  box-shadow: 0 18px 48px rgba(3, 8, 20, 0.38);
+}
+
+.difficulty-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.difficulty-button {
+  min-height: 52px;
+  padding: 0 14px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  border: 1px solid rgba(95, 147, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.difficulty-button.is-active {
+  background: linear-gradient(180deg, rgba(79, 141, 255, 0.2) 0%, rgba(79, 141, 255, 0.1) 100%);
+  border-color: rgba(79, 141, 255, 0.36);
+  color: var(--accent);
+}
+
+.settings-footer {
+  display: grid;
+  justify-items: center;
+  margin-top: 6px;
+}
+
+.settings-start-button {
+  margin-top:20px;
+  width: min(360px, 100%);
+}
+
+.secondary-button {
+  appearance: none;
+  border: 1px solid rgba(95, 147, 255, 0.24);
+  border-radius: 12px;
+  min-height: 48px;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.secondary-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(79, 141, 255, 0.42);
+  background: rgba(79, 141, 255, 0.1);
+}
+
+.secondary-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.penalties-table-wrap {
+  overflow: auto;
+}
+
+.penalties-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.penalties-table th {
+  text-align: left;
+  padding: 0 14px 4px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.penalties-table td {
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(95, 147, 255, 0.14);
+  border-bottom: 1px solid rgba(95, 147, 255, 0.14);
+  vertical-align: middle;
+}
+
+.penalties-table tr td:first-child {
+  border-left: 1px solid rgba(95, 147, 255, 0.14);
+  border-radius: 16px 0 0 16px;
+}
+
+.penalties-table tr td:last-child {
+  border-right: 1px solid rgba(95, 147, 255, 0.14);
+  border-radius: 0 16px 16px 0;
+}
+
+.penalties-table tr.is-selected td {
+  background: rgba(79, 141, 255, 0.11);
+  border-color: rgba(79, 141, 255, 0.28);
+}
+
+.penalties-table tr {
+  cursor: pointer;
+}
+
+.penalties-table tr:focus-visible td,
+.penalties-table tr:hover td {
+  border-color: rgba(79, 141, 255, 0.34);
+}
+
+.penalties-table tr:focus-visible td {
+  outline: 3px solid rgba(79, 141, 255, 0.16);
+  outline-offset: -2px;
+}
+
+.penalties-table tr.is-selected:hover td {
+  background: rgba(79, 141, 255, 0.15);
+}
+
+.penalty-cell--meta {
+  min-width: 0;
+}
+
+.penalty-name {
+  font-weight: 700;
+}
+
+.penalty-description {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.points-spent {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: end;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(95, 147, 255, 0.18);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.points-spent strong {
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.seed-result-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.seed-field--output {
+  display: grid;
+  gap: 8px;
+}
+
+.seed-field__label {
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.seed-field input[readonly] {
+  cursor: text;
+}
+
+.settings-feedback {
+  margin-top: -2px;
+}
+
+.card-page {
+  padding-top: clamp(18px, 4vw, 36px);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  animation: fadeUp 0.7s ease both;
+}
+
+.card-meta {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.board-panel {
+  padding: 18px;
+  animation: fadeUp 0.8s ease both;
+  animation-delay: 0.08s;
+}
+
+.board-wrap {
+  overflow: auto;
+}
+
+#bingo {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+
+#bingo td {
+  background: #fff;
+  color: var(--text);
+  border: 1px solid rgba(19, 31, 53, 0.08);
+  border-radius: 18px;
+  padding: 18px 14px;
+  text-align: center;
+  font-weight: 700;
+  vertical-align: middle;
+  box-shadow: inset 0 -1px 0 rgba(15, 23, 42, 0.03);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+#bingo td:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  border-color: rgba(37, 99, 235, 0.22);
+}
+
+#bingo td.popout {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: var(--muted);
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+}
+
+#bingo td.popout {
+  padding-inline: 6px;
+}
+
+.countdown-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(79, 141, 255, 0.18), transparent 28%),
+    linear-gradient(180deg, rgba(6, 12, 25, 0.88) 0%, rgba(10, 19, 38, 0.96) 100%);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 20;
+}
+
+.countdown-overlay.is-visible {
+  opacity: 1;
+}
+
+.countdown-card {
+  text-align: center;
+  min-width: min(420px, calc(100vw - 32px));
+  padding: 30px 34px;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(11, 19, 38, 0.92) 0%, rgba(6, 12, 25, 0.98) 100%);
+  border: 1px solid rgba(95, 147, 255, 0.28);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 0 36px rgba(79, 141, 255, 0.16);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(79, 141, 255, 0.08), transparent 40%);
+  pointer-events: none;
+}
+
+.countdown-label {
+  position: relative;
+  margin: 0;
+  color: var(--muted);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.countdown-number {
+  position: relative;
+  margin-top: 10px;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(3.6rem, 12vw, 8rem);
+  line-height: 1;
+  color: #4f8dff;
+  text-shadow: 0 0 26px rgba(79, 141, 255, 0.36);
+  animation: countdownPop 0.35s ease;
+}
+
+.countdown-number::after {
+  content: "";
+  display: block;
+  width: min(240px, 60vw);
+  height: 4px;
+  margin: 14px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0%, #3f7fff 18%, #87b1ff 50%, #3f7fff 82%, transparent 100%);
+  box-shadow: 0 0 20px rgba(79, 141, 255, 0.75);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes landingGridDrift {
+  0% {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+    transform: perspective(700px) rotateX(0deg) scale(1);
+  }
+
+  50% {
+    background-position: 0 0, 0 120%, 120% 0;
+    transform: perspective(700px) rotateX(6deg) scale(1.01);
+  }
+
+  100% {
+    background-position: 0 0, 0 240%, 240% 0;
+    transform: perspective(700px) rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes landingGridPulse {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scale(0.98);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes landingPageGridDrift {
+  0% {
+    background-position: 0 0, 0 0, center center;
+    transform: perspective(900px) translate3d(0, 0, 0) scale(1);
+  }
+
+  14.285% {
+    background-position: 5px 8px, 8px 5px, center center;
+    transform: perspective(900px) translate3d(4px, -2px, 0) scale(1.003);
+  }
+
+  28.571% {
+    background-position: 14px 18px, 18px 14px, center center;
+    transform: perspective(900px) translate3d(9px, -5px, 0) scale(1.007);
+  }
+
+  42.857% {
+    background-position: 26px 28px, 28px 26px, center center;
+    transform: perspective(900px) translate3d(13px, -9px, 0) scale(1.011);
+  }
+
+  57.142% {
+    background-position: 40px 38px, 38px 40px, center center;
+    transform: perspective(900px) translate3d(9px, -13px, 0) scale(1.013);
+  }
+
+  71.428% {
+    background-position: 54px 48px, 48px 54px, center center;
+    transform: perspective(900px) translate3d(2px, -10px, 0) scale(1.01);
+  }
+
+  85.714% {
+    background-position: 32px 60px, 60px 32px, center center;
+    transform: perspective(900px) translate3d(-5px, -6px, 0) scale(1.006);
+  }
+
+  100% {
+    background-position: 0 84px, 84px 0, center center;
+    transform: perspective(900px) translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes landingPageGlowPulse {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.96;
+    transform: scale(1.025);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
+}
+
+@keyframes countdownPop {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .rules-grid,
+  .difficulty-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-hero {
+    width: 100%;
+  }
+
+  .seed-launcher__row {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-block__header--row,
+  .seed-result-row {
+    grid-template-columns: 1fr;
+  }
+
+  .penalties-card__toggle {
+    grid-template-columns: 1fr;
+  }
+
+  .points-spent {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 14px;
+  }
+
+  .landing-hero,
+  .settings-panel,
+  .board-panel,
+  .card-header,
+  .landing-footer {
+    padding: 18px;
+  }
+
+  .settings-layout {
+    margin-top: 18px;
+  }
+
+  .settings-block {
+    padding: 14px;
+  }
+
+  .landing-title {
+    font-size: clamp(2.8rem, 17vw, 5rem);
+  }
+
+  #bingo {
+    border-spacing: 8px;
+  }
+
+  #bingo td {
+    padding: 14px 12px;
+    border-radius: 16px;
+  }
+
+  .countdown-card {
+    padding: 22px;
+  }
+}

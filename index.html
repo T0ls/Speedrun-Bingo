@@ -1,216 +1,67 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<title>Speedrun Bingo</title>
-
-	<!-- Base style -->
-
-	<!-- Modern theme (overrides) - cache-bust to force reload -->
-	<link href="style.css" rel="stylesheet">
-	<!-- Scripts -->
-	<script src="bingoData.js" defer></script>
-	<script src="script.js" defer></script>
-    <link rel="icon" href="Images/Speedrun%20bingo%20Logo.png">
-
-	<!-- Bingo Table -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speedrun Bingo</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="bingoData.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
+<body data-page="landing">
+  <main class="page landing-page">
+    <section class="landing-hero">
+      <h1 class="landing-title">Speedrun Bingo</h1>
+      <div class="landing-line" aria-hidden="true"></div>
 
-<body cz-shortcut-listen="true">
-	<div id="wrap">
-		<div id="main">
-			<div class="container">
-				<div id="bingoPage">
-					<h1 class="Tdtype heading" >Bingo type:</h1>
-					<p class="Tdtype subheading"  id="Tdtype">No</p>
-                        <p class="Tdtype subheading" >card selected</p>
-                    <br>
-                    <br>
-					<div id="results">
+      <h2 class="rules-heading">Game Rules</h2>
 
-						<table id="bingo">
-							<tbody>
-								<tr>
-									<td class="popout" id="tlbr">TL-BR</td>
-									<td class="popout" id="col1">COL1</td>
-									<td class="popout" id="col2">COL2</td>
-									<td class="popout" id="col3">COL3</td>
-									<td class="popout" id="col4">COL4</td>
-									<td class="popout" id="col5">COL5</td>
-								</tr>
-								<tr>
-									<td class="popout" id="row1">ROW1</td>
-									<td class="row1 col1 tlbr" id="slot1"></td>
-									<td class="row1 col2" id="slot2"></td>
-									<td class="row1 col3" id="slot3"></td>
-									<td class="row1 col4" id="slot4"></td>
-									<td class="row1 col5 bltr" id="slot5"></td>
-								</tr>
-								<tr>
-									<td class="popout" id="row2">ROW2</td>
-									<td class="row2 col1" id="slot6"></td>
-									<td class="row2 col2 tlbr" id="slot7"></td>
-									<td class="row2 col3" id="slot8"></td>
-									<td class="row2 col4 bltr" id="slot9"></td>
-									<td class="row2 col5" id="slot10"></td>
-								</tr>
-								<tr>
-									<td class="popout" id="row3">ROW3</td>
-									<td class="row3 col1" id="slot11"></td>
-									<td class="row3 col2" id="slot12"></td>
-									<td class="row3 col3 tlbr bltr" id="slot13"></td>
-									<td class="row3 col4" id="slot14"></td>
-									<td class="row3 col5" id="slot15"></td>
-								</tr>
-								<tr>
-									<td class="popout" id="row4">ROW4</td>
-									<td class="row4 col1" id="slot16"></td>
-									<td class="row4 col2 bltr" id="slot17"></td>
-									<td class="row4 col3" id="slot18"></td>
-									<td class="row4 col4 tlbr" id="slot19"></td>
-									<td class="row4 col5" id="slot20"></td>
-								</tr>
-								<tr>
-									<td class="popout" id="row5">ROW5</td>
-									<td class="row5 col1 bltr" id="slot21"></td>
-									<td class="row5 col2" id="slot22"></td>
-									<td class="row5 col3" id="slot23"></td>
-									<td class="row5 col4" id="slot24"></td>
-									<td class="row5 col5 tlbr" id="slot25"></td>
-								</tr>
-								<tr>
-									<td class="popout" id="bltr">BL-TR</td>
-									<td colspan="5" style="display:none;"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+      <div class="rules-grid" aria-label="Game rules">
+        <article class="rule-column">
+          <h3>How to Play</h3>
+          <ul>
+            <li>Complete the goals on the bingo grid.</li>
+            <li>You can use any game that fits the goal.</li>
+            <li>Time is running: the faster you are, the better.</li>
+            <li>Every tome you win you get a point.</li>
+            <li>You can spend your points to inflict a penalty on another player.</li>
+            <li>If the player you used the penalty on wins the game, he gets his point plus the cost of your penalty.</li>
+          </ul>
+        </article>
 
-					<div class="resulttitle">
-						<h3 class="heading" >Penality Table:</h3>
-                        <p class="subheading">(Hover on the cell to reavel the penality description)</p>
-					    <br>
-                    </div>
+        <article class="rule-column rule-column--accent">
+          <h3>Restrinctions</h3>
+          <ul>
+            <li>Each goal must be completed on a different game.</li>
+            <li>The game you chosse must be played on a new save, no older saves.</li>
+            <li>Creative mode is not allowed in all games.</li>
+            <li>All goals must be complete in game, no Cutscene.</li>
+          </ul>
+        </article>
+      </div>
 
-					<div id="results">
-						<table id="bingo">
-							<tbody>
-								<tr>
-									<td class="popout1" id="1tlbr" 	>Penalty</td>
-									<td class="popout1" id="1col1" 	>1 Point</td>
-									<td class="popout1" id="1col2" 	>2 Point</td>
-									<td class="popout1" id="1col3" 	>3 Point</td>
-								</tr>
-								<tr>
-									<td class="popout1" id="1row1" 	>ROW1</td>
-									<td class="1row1 col1 tlbr" id="1slot1"
-										title="Your rival choose a console you can't use.">The thief</td>
-									<td class="1row1 col2" id="1slot2" title="You can't reload in games.">Revolver</td>
-									<td class="1row1 col3" id="1slot3"
-										title="Your rival choose for you a goal, that locks all the goals in the the same raw and column.">
-										The ass*ole</td>
-								</tr>
-								<tr>
-									<td class="popout1" id="1row2" 	>ROW2</td>
-									<td class="1row2 col1" id="1slot6" title="You can't skip Cutscene.">Sabaku</td>
-									<td class="1row2 col2 tlbr" id="1slot7"
-										title="You can't build structures in games.">Bob the builder</td>
-									<td class="1row2 col3" id="1slot8"
-										title="You roll a D12 and let him choose your bingo.">D12</td>
-								</tr>
-								<tr>
-									<td class="popout1" id="1row3" 	>ROW3</td>
-									<td class="1row3 col1" id="1slot11"
-										title="Take a 5min coffee break, at the end of the second goal.">Coffee break
-									</td>
-									<td class="1row3 col2" id="1slot12"
-										title="You choose a goal, you must complete it twice in 2 different games.">
-										Hobby</td>
-									<td class="1row3 col3 tlbr bltr" id="1slot13"
-										title="Your rival choose one more goal you have to complete do do bingo.">One's
-										more!</td>
-								</tr>
-								<tr>
-									<td class="popout1" id="1row4" 	>ROW4</td>
-									<td class="1row4 col1" id="1slot16"
-										title="Complete the goals in the order is given (up->down) (left->right)">In row
-									</td>
-									<td class="1row4 col2 bltr" id="1slot17"
-										title="You may only play games released after 2015.">Casual gamer</td>
-									<td class="1row4 col3" id="1slot18"
-										title="Your rival chooses 2 bingo lines, and you have to complete all 10 goals exept for 5 of your choice.">
-										I'll handle that</td>
-								</tr>
-								<tr>
-									<td class="popout1" id="1row5" 	>ROW5</td>
-									<td class="1row5 col1 bltr" id="1slot21"
-										title="One goal must be completed in 2D game.">2D</td>
-									<td class="1row5 col2" id="1slot22" title="You can't play pegi 18 Games.">Underaged
-									</td>
-									<td class="1row5 col3" id="1slot23"
-										title="You have to reverse your movement controls.">The glitch</td>
-								</tr>
-								<tr>
-									<td colspan="5" style="display:none;"></td>
-								</tr>
-							</tbody>
-						</table>
-						<br>
-						<br>
-					</div>
+      <div class="landing-cta">
+        <button class="primary-button" id="personalizeButton" type="button">Personalize Game</button>
+        <span class="or-divider">or</span>
 
-				</div>
-				<div id="about_bingo">
-					<h2 class="sideheading">Generate a new card</h2>
+        <div class="seed-launcher">
+          <div class="seed-launcher__label">Start with seed</div>
+          <div class="seed-launcher__row">
+            <input id="landingSeedInput" type="text" inputmode="text" autocomplete="off" placeholder="LABC123">
+            <button class="primary-button primary-button--small" id="startSeedButton" type="button">Start</button>
+          </div>
+          <p class="field-error" id="landingError" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
 
-					<p><span class="note">Select one type of card to generate a new one.</span></p>
-					<p class="seed-row">
-						<label for="seedInput">Seed</label>
-						<input id="seedInput" name="seed" type="text" placeholder="Leave empty for random" />
-					</p>
-					<p id="sortButtons" >
-						<button class="sortButton" onclick="Easy()">Short Card</button>
-						<button class="sortButton" onclick="Normal()">Normal Card</button>
-						<button class="sortButton" onclick="Hard()">Long Card</button>
-					</p>
-
-					<h2 class="sideheading">About Generic Bingo</h2>
-					<p>This is a bingo board for a non-specific multi-game race.</p>
-					<p>Each square can be completed in any game where such a goal is possible.</p>
-					<p>Any restrictions on the games allowed should be agreed upon before the race starts.</p>
-					<br>
-					<br><h3 class="sideheading"><u>Rules:</u></h3>
-					<ul>
-						<li><b>Speedrun</b> - The game you chosse must be played on a new save, no older saves.
-							<ul>
-								<li><i>Exept:</i> "Online/multiplayer games, you have to play as if you had a new
-									account."</li>
-							</ul>
-						</li>
-						<li><b>5 Games</b> - Must use a different game for each goal.</li>
-						<li><b>Creative</b> - Creative mode is not allowed in any games.</li>
-						<li><b>Mods</b> - You are not allowed to use any kind of mod.</li>
-						<li><b>Cutscene</b> - All goals must be complete in game not <u>No Cutscene.</u></li>
-						<li><b>Platform</b> - Games must be released on the specified platforms. (Ex.
-							"Console/Steam", "N64", etc.) <u>No Emulators!</u></li>
-						<li><b>Penality</b> - <em><u>Optional</u></em> For a more stimulating game use the
-							prenitences.
-							<ul>
-								<li>Every tome you win you get a point.</li>
-								<li>You can spend your points to inflict a penalty on another player.</li>
-								<li>If the player you used the penalty on wins the game, he gets his point plus the
-									cost of your penalty.</li>
-							</ul>
-						</li>
-					</ul>
-
-					<br><br>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
+  <div class="countdown-overlay" id="countdownOverlay" aria-hidden="true">
+    <div class="countdown-card">
+      <p class="countdown-label">Launching card</p>
+      <div class="countdown-number" id="countdownNumber">3</div>
+    </div>
+  </div>
 </body>
-
 </html>

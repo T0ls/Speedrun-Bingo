@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speedrun Bingo Card</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="bingoData.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body data-page="card">
+  <main class="page card-page">
+    <header class="card-header panel">
+      <div>
+        <p class="eyebrow">Speedrun Bingo</p>
+        <h1 class="section-title">Generated card</h1>
+      </div>
+      <div class="card-meta">
+        <span id="Tdtype">Normal</span>
+        <span id="cardSeedLabel">Seed: random</span>
+      </div>
+      <a class="back-link" href="bingo-settings.html">Back to settings</a>
+    </header>
+
+    <section class="board-panel panel">
+      <div class="board-wrap">
+        <table id="bingo" aria-label="Speedrun bingo board">
+          <tbody>
+            <tr>
+              <td class="popout" id="tlbr">TL-BR</td>
+              <td class="popout" id="col1">COL1</td>
+              <td class="popout" id="col2">COL2</td>
+              <td class="popout" id="col3">COL3</td>
+              <td class="popout" id="col4">COL4</td>
+              <td class="popout" id="col5">COL5</td>
+            </tr>
+            <tr>
+              <td class="popout" id="row1">ROW1</td>
+              <td class="row1 col1 tlbr" id="slot1"></td>
+              <td class="row1 col2" id="slot2"></td>
+              <td class="row1 col3" id="slot3"></td>
+              <td class="row1 col4" id="slot4"></td>
+              <td class="row1 col5 bltr" id="slot5"></td>
+            </tr>
+            <tr>
+              <td class="popout" id="row2">ROW2</td>
+              <td class="row2 col1" id="slot6"></td>
+              <td class="row2 col2 tlbr" id="slot7"></td>
+              <td class="row2 col3" id="slot8"></td>
+              <td class="row2 col4 bltr" id="slot9"></td>
+              <td class="row2 col5" id="slot10"></td>
+            </tr>
+            <tr>
+              <td class="popout" id="row3">ROW3</td>
+              <td class="row3 col1" id="slot11"></td>
+              <td class="row3 col2" id="slot12"></td>
+              <td class="row3 col3 tlbr bltr" id="slot13"></td>
+              <td class="row3 col4" id="slot14"></td>
+              <td class="row3 col5" id="slot15"></td>
+            </tr>
+            <tr>
+              <td class="popout" id="row4">ROW4</td>
+              <td class="row4 col1" id="slot16"></td>
+              <td class="row4 col2 bltr" id="slot17"></td>
+              <td class="row4 col3" id="slot18"></td>
+              <td class="row4 col4 tlbr" id="slot19"></td>
+              <td class="row4 col5" id="slot20"></td>
+            </tr>
+            <tr>
+              <td class="popout" id="row5">ROW5</td>
+              <td class="row5 col1 bltr" id="slot21"></td>
+              <td class="row5 col2" id="slot22"></td>
+              <td class="row5 col3" id="slot23"></td>
+              <td class="row5 col4" id="slot24"></td>
+              <td class="row5 col5 tlbr" id="slot25"></td>
+            </tr>
+            <tr>
+              <td class="popout" id="bltr">BL-TR</td>
+              <td colspan="5" style="display:none;"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

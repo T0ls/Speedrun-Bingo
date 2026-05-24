@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speedrun Bingo Settings</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="bingoData.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body data-page="settings">
+  <main class="page settings-page">
+    <section class="settings-panel panel">
+      <div class="settings-hero">
+        <h1 class="section-title settings-title">Build your speedrun setup</h1>
+        <p class="landing-copy">Choose the board difficulty, optionally activate penalties, generate a shareable seed, then launch the run.</p>
+      </div>
+
+      <div class="settings-hero-actions">
+        <a href="index.html" id="backToLandingLink" class="back-link">
+          <span class="back-link__arrow" aria-hidden="true">←</span>
+          <span class="back-link__text">Back to landing</span>
+        </a>
+      </div>
+
+      <div class="settings-layout">
+        <section class="settings-block">
+          <div class="settings-block__header">
+            <p class="section-label">Difficulty</p>
+            <span class="settings-block__hint">Pick the board tier</span>
+          </div>
+
+          <div class="difficulty-grid" role="tablist" aria-label="Difficulty options">
+            <button class="difficulty-button is-active" type="button" data-difficulty="easy" aria-pressed="true">Easy</button>
+            <button class="difficulty-button" type="button" data-difficulty="normal" aria-pressed="false">Medium</button>
+            <button class="difficulty-button" type="button" data-difficulty="hard" aria-pressed="false">Hard</button>
+          </div>
+        </section>
+
+        <section class="settings-block settings-block--penalties" data-penalties-card>
+          <button class="penalties-card__toggle" id="penaltiesCardToggle" type="button" aria-expanded="false" aria-controls="penaltiesPanel">
+            <div>
+              <p class="section-label">Penalties</p>
+              <h2 class="settings-block__title">Explore the penalty card</h2>
+              <span class="settings-block__hint">Click to open the list and select the penalties your friends have given you</span>
+            </div>
+
+            <span class="penalties-card__chevron" aria-hidden="true"></span>
+          </button>
+
+          <div class="penalties-panel" id="penaltiesPanel" hidden>
+            <div class="settings-block__header settings-block__header--row">
+              <div>
+                <span class="settings-block__hint">Click a penalty card to select or deselect it.</span>
+              </div>
+              <div class="penalties-header-actions">
+                <button class="secondary-button" id="clearPenaltiesButton" type="button">Clear selections</button>
+                <div class="points-spent" aria-live="polite">
+                  <span>Points spent</span>
+                  <strong id="penaltyPointsSpent">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="penalties-table-wrap">
+              <table class="penalties-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Penalty</th>
+                    <th scope="col">Cost</th>
+                  </tr>
+                </thead>
+                <tbody id="penaltiesTableBody"></tbody>
+              </table>
+            </div>
+
+            
+          </div>
+        </section>
+
+        <section class="settings-block settings-block--seed">
+          <div class="settings-block__header settings-block__header--row">
+            <div>
+              <p class="section-label">Seed</p>
+              <span class="settings-block__hint">Generate a shareable setup string</span>
+            </div>
+            <button class="secondary-button" id="generateSeedButton" type="button">Generate Seed</button>
+          </div>
+
+          <div class="seed-result-row">
+            <label class="seed-field seed-field--output" for="generatedSeedOutput">
+              <span class="seed-field__label">Current seed</span>
+              <input id="generatedSeedOutput" type="text" readonly value="">
+            </label>
+
+            <button class="secondary-button" id="copySeedButton" type="button" disabled>Copy</button>
+          </div>
+
+          <p class="field-error settings-feedback" id="seedFeedback" aria-live="polite">Generate a seed in the format LABC123, MABC123, or HABC123.</p>
+        </section>
+      </div>
+
+      <div class="settings-footer">
+        <button class="primary-button settings-start-button" id="settingsStartButton" type="button">Start speedrunning</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="countdown-overlay" id="countdownOverlay" aria-hidden="true">
+    <div class="countdown-card">
+      <p class="countdown-label">Launching card</p>
+      <div class="countdown-number" id="countdownNumber">3</div>
+    </div>
+  </div>
+</body>
+</html>
