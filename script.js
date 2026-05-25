@@ -26,6 +26,29 @@ const PENALTIES = Object.freeze([
 
 const GRID_SIZE = 5;
 const TOTAL_SLOTS = GRID_SIZE * GRID_SIZE;
+const activeCountdownTimeouts = [];
+
+function scheduleCountdownStep(callback, delayMs) {
+  const timeoutId = window.setTimeout(() => {
+    const timeoutIndex = activeCountdownTimeouts.indexOf(timeoutId);
+
+    if (timeoutIndex >= 0) {
+      activeCountdownTimeouts.splice(timeoutIndex, 1);
+    }
+
+    callback();
+  }, delayMs);
+
+  activeCountdownTimeouts.push(timeoutId);
+}
+
+function clearPendingCountdowns() {
+  activeCountdownTimeouts.forEach((timeoutId) => {
+    window.clearTimeout(timeoutId);
+  });
+
+  activeCountdownTimeouts.length = 0;
+}
 
 function normalizeSeed(seedValue) {
   return String(seedValue ?? "").trim().toUpperCase();
@@ -266,6 +289,47 @@ function setCountdownValue(value) {
   }
 }
 
+function resetCountdownOverlay() {
+  const overlay = document.getElementById("countdownOverlay");
+
+  if (!overlay) {
+    return;
+  }
+
+  overlay.classList.remove("is-visible");
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("site-locked");
+  setCountdownValue("3");
+}
+
+function resetLandingTransientState() {
+  resetCountdownOverlay();
+  lockLandingControls(false);
+}
+
+function resetSettingsTransientState() {
+  resetCountdownOverlay();
+  lockControls(
+    false,
+    ".difficulty-button, [data-penalty-row], #generateSeedButton, #copySeedButton, #settingsStartButton"
+  );
+}
+
+function resetTransientPageState() {
+  clearPendingCountdowns();
+
+  const pageType = document.body.dataset.page;
+
+  if (pageType === "landing") {
+    resetLandingTransientState();
+    return;
+  }
+
+  if (pageType === "settings") {
+    resetSettingsTransientState();
+  }
+}
+
 function lockLandingControls(locked) {
   const controls = document.querySelectorAll(
     "#landingSeedInput, #startSeedButton, #personalizeButton"
@@ -371,6 +435,8 @@ function writeToClipboard(value) {
 function startLandingCountdown(seedValue) {
   const overlay = document.getElementById("countdownOverlay");
 
+  clearPendingCountdowns();
+
   if (!overlay) {
     navigateTo(buildCardUrl({ seed: seedValue }));
     return;
@@ -385,18 +451,20 @@ function startLandingCountdown(seedValue) {
   const steps = ["3", "2", "1", "START!"];
 
   steps.forEach((step, index) => {
-    window.setTimeout(() => {
+    scheduleCountdownStep(() => {
       setCountdownValue(step);
     }, index * 700);
   });
 
-  window.setTimeout(() => {
+  scheduleCountdownStep(() => {
     navigateTo(buildCardUrl({ seed: seedValue }));
   }, 2800);
 }
 
 function startSettingsCountdown(onComplete) {
   const overlay = document.getElementById("countdownOverlay");
+
+  clearPendingCountdowns();
 
   if (!overlay) {
     onComplete();
@@ -410,12 +478,12 @@ function startSettingsCountdown(onComplete) {
   const steps = ["3", "2", "1", "START!"];
 
   steps.forEach((step, index) => {
-    window.setTimeout(() => {
+    scheduleCountdownStep(() => {
       setCountdownValue(step);
     }, index * 700);
   });
 
-  window.setTimeout(() => {
+  scheduleCountdownStep(() => {
     onComplete();
   }, 2800);
 }
@@ -889,6 +957,8 @@ function initCardPage() {
 }
 
 function initPage() {
+  resetTransientPageState();
+
   const pageType = document.body.dataset.page;
 
   if (pageType === "landing") {
@@ -907,3 +977,5 @@ function initPage() {
 }
 
 window.addEventListener("DOMContentLoaded", initPage);
+window.addEventListener("pageshow", resetTransientPageState);
+window.addEventListener("pagehide", clearPendingCountdowns);
