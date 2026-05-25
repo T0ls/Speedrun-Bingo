@@ -302,10 +302,11 @@ function formatRunTime(elapsedMs) {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
+  const milliseconds = Math.floor(elapsedMs % 1000);
 
-  return [hours, minutes, seconds]
+  return `${[hours, minutes, seconds]
     .map((value) => String(value).padStart(2, "0"))
-    .join(":");
+    .join(":")}<small class="card-timer__ms">.${String(milliseconds).padStart(3, "0")}</small>`;
 }
 
 function writeToClipboard(value) {
@@ -728,7 +729,7 @@ function initCardPage() {
   const difficultyLabel = document.getElementById("Tdtype");
   const timerLabel = document.getElementById("speedrunTimer");
   const endButton = document.getElementById("endSpeedrunButton");
-  const deleteButton = document.getElementById("deleteSpeedrunButton");
+  const pauseButton = document.getElementById("pauseSpeedrunButton");
   const selectedPenaltiesList = document.getElementById("selectedPenaltiesList");
   const selectedPenaltiesEmpty = document.getElementById("selectedPenaltiesEmpty");
 
@@ -768,24 +769,48 @@ function initCardPage() {
   }
 
   let timerStartedAt = window.performance.now();
-  let timerFrame = window.setInterval(() => {
+  let timerElapsed = 0;
+  let timerFrame = null;
+  let timerPaused = false;
+
+  function refreshTimerLabel() {
     if (!timerLabel) {
       return;
     }
 
-    timerLabel.textContent = formatRunTime(window.performance.now() - timerStartedAt);
-  }, 250);
+    const elapsed = timerElapsed + (timerStartedAt === null ? 0 : window.performance.now() - timerStartedAt);
+
+    timerLabel.innerHTML = formatRunTime(elapsed);
+  }
+
+  function startTimerFrame() {
+    if (timerFrame !== null) {
+      return;
+    }
+
+    timerFrame = window.setInterval(refreshTimerLabel, 250);
+  }
+
+  function stopTimerFrame() {
+    if (timerFrame === null) {
+      return;
+    }
+
+    window.clearInterval(timerFrame);
+    timerFrame = null;
+  }
 
   if (timerLabel) {
-    timerLabel.textContent = "00:00:00";
+    timerLabel.innerHTML = "00:00:00<small class=\"card-timer__ms\">.000</small>";
   }
+
+  refreshTimerLabel();
+  startTimerFrame();
 
   if (endButton) {
     endButton.addEventListener("click", () => {
-      if (timerFrame !== null) {
-        window.clearInterval(timerFrame);
-        timerFrame = null;
-      }
+      stopTimerFrame();
+      timerStartedAt = null;
 
       if (timerLabel) {
         timerLabel.classList.add("is-ended");
@@ -793,22 +818,38 @@ function initCardPage() {
 
       endButton.disabled = true;
       endButton.textContent = "SPEEDRUN ENDED";
+
+      if (pauseButton) {
+        pauseButton.disabled = true;
+      }
     });
   }
 
-  if (deleteButton) {
-    deleteButton.addEventListener("click", () => {
-      const shouldDelete = window.confirm("Delete this speedrun and return to settings?");
-
-      if (!shouldDelete) {
+  if (pauseButton) {
+    pauseButton.addEventListener("click", () => {
+      if (!timerPaused && timerStartedAt === null) {
         return;
       }
 
-      if (timerFrame !== null) {
-        window.clearInterval(timerFrame);
+      if (timerPaused) {
+        timerStartedAt = window.performance.now();
+        timerPaused = false;
+        pauseButton.textContent = "||";
+        pauseButton.setAttribute("aria-label", "Pause speedrun");
+        pauseButton.setAttribute("title", "Pause speedrun");
+        startTimerFrame();
+        refreshTimerLabel();
+        return;
       }
 
-      navigateTo("bingo-settings.html");
+      timerElapsed += window.performance.now() - timerStartedAt;
+      timerStartedAt = null;
+      timerPaused = true;
+      stopTimerFrame();
+      refreshTimerLabel();
+      pauseButton.textContent = "▶";
+      pauseButton.setAttribute("aria-label", "Resume speedrun");
+      pauseButton.setAttribute("title", "Resume speedrun");
     });
   }
 

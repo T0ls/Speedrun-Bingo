@@ -708,7 +708,7 @@ body.site-locked .countdown-overlay {
 
 .card-toolbar {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 1.2fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 16px;
   padding: 18px 20px;
@@ -721,12 +721,22 @@ body.site-locked .countdown-overlay {
 }
 
 .card-timer {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.14em;
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   font-size: clamp(2.1rem, 5vw, 3.8rem);
   line-height: 1;
   letter-spacing: -0.05em;
   color: var(--accent-2);
   text-shadow: 0 0 22px rgba(79, 141, 255, 0.2);
+}
+
+.card-timer__ms {
+  font-size: 0.34em;
+  line-height: 1;
+  letter-spacing: 0;
+  opacity: 0.72;
 }
 
 .card-timer.is-ended {
@@ -744,8 +754,12 @@ body.site-locked .countdown-overlay {
   text-transform: uppercase;
 }
 
-.card-delete-button {
+.card-pause-button {
   justify-self: end;
+  min-width: 72px;
+  padding-inline: 0;
+  font-size: 1.15rem;
+  letter-spacing: 0.18em;
 }
 
 .card-board {
@@ -781,7 +795,8 @@ body.site-locked .countdown-overlay {
 }
 
 #bingo {
-  width: 100%;
+  width: min(100%, 880px);
+  table-layout: fixed;
   border-collapse: separate;
   border-spacing: 8px;
 }
@@ -790,7 +805,7 @@ body.site-locked .countdown-overlay {
   background: rgba(255, 255, 255, 0.05);
   color: var(--text);
   border: 1px solid rgba(95, 147, 255, 0.16);
-  border-radius: 18px;
+  border-radius: 0;
   padding: 18px 14px;
   text-align: center;
   font-weight: 700;
@@ -800,6 +815,10 @@ body.site-locked .countdown-overlay {
   box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(8px);
   transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
+}
+
+#bingo td:not(.popout) {
+  height: 116px;
 }
 
 #bingo td:hover {
