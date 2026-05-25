@@ -809,6 +809,7 @@ function initCardPage() {
     const elapsed = timerElapsed + (timerStartedAt === null ? 0 : window.performance.now() - timerStartedAt);
 
     timerLabel.innerHTML = formatRunTime(elapsed);
+    window.requestAnimationFrame(refreshTimerLabel);
   }
 
   function startTimerFrame() {
@@ -816,7 +817,7 @@ function initCardPage() {
       return;
     }
 
-    timerFrame = window.setInterval(refreshTimerLabel, 250);
+    timerFrame = window.requestAnimationFrame(refreshTimerLabel);
   }
 
   function stopTimerFrame() {
