@@ -828,6 +828,26 @@ body.site-locked .countdown-overlay {
   background: rgba(79, 141, 255, 0.08);
 }
 
+#bingo td.is-completed {
+  background: rgba(42, 184, 106, 0.18);
+  border-color: rgba(42, 184, 106, 0.5);
+}
+
+#bingo td.is-completed:hover {
+  background: rgba(42, 184, 106, 0.24);
+  border-color: rgba(42, 184, 106, 0.62);
+}
+
+#bingo td.is-blocked {
+  background: rgba(223, 78, 78, 0.18);
+  border-color: rgba(223, 78, 78, 0.52);
+}
+
+#bingo td.is-blocked:hover {
+  background: rgba(223, 78, 78, 0.24);
+  border-color: rgba(223, 78, 78, 0.64);
+}
+
 #bingo td.popout {
   background: transparent;
   border: 0;

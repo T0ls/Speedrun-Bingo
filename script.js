@@ -191,12 +191,40 @@ function generateBoard(categories, seedValue) {
   return board;
 }
 
+function getNextCellState(currentState) {
+  if (currentState === "normal") {
+    return "completed";
+  }
+
+  if (currentState === "completed") {
+    return "blocked";
+  }
+
+  return "normal";
+}
+
+function applyCellState(cell, state) {
+  cell.dataset.state = state;
+  cell.classList.toggle("is-completed", state === "completed");
+  cell.classList.toggle("is-blocked", state === "blocked");
+}
+
 function renderBoard(goals) {
   for (let slot = 1; slot <= TOTAL_SLOTS; slot += 1) {
     const cell = document.getElementById(`slot${slot}`);
 
     if (cell) {
       cell.textContent = goals[slot - 1] ?? "";
+      applyCellState(cell, "normal");
+
+      if (cell.dataset.stateListener !== "true") {
+        cell.addEventListener("click", () => {
+          const currentState = cell.dataset.state ?? "normal";
+          applyCellState(cell, getNextCellState(currentState));
+        });
+
+        cell.dataset.stateListener = "true";
+      }
     }
   }
 }
