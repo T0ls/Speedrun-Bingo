@@ -191,16 +191,12 @@ function generateBoard(categories, seedValue) {
   return board;
 }
 
-function getNextCellState(currentState) {
-  if (currentState === "normal") {
-    return "completed";
+function getCellStateForButton(currentState, targetState) {
+  if (currentState === targetState) {
+    return "normal";
   }
 
-  if (currentState === "completed") {
-    return "blocked";
-  }
-
-  return "normal";
+  return targetState;
 }
 
 function applyCellState(cell, state) {
@@ -220,7 +216,13 @@ function renderBoard(goals) {
       if (cell.dataset.stateListener !== "true") {
         cell.addEventListener("click", () => {
           const currentState = cell.dataset.state ?? "normal";
-          applyCellState(cell, getNextCellState(currentState));
+          applyCellState(cell, getCellStateForButton(currentState, "completed"));
+        });
+
+        cell.addEventListener("contextmenu", (event) => {
+          event.preventDefault();
+          const currentState = cell.dataset.state ?? "normal";
+          applyCellState(cell, getCellStateForButton(currentState, "blocked"));
         });
 
         cell.dataset.stateListener = "true";
