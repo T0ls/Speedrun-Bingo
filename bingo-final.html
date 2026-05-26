@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speedrun Bingo Finale</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="script.js" defer></script>
+</head>
+<body data-page="final">
+  <main class="page final-page">
+    <section class="final-stage" aria-label="Speedrun finale">
+      <div class="final-fireworks" aria-hidden="true">
+        <span class="firework firework--1" style="--x: 10%; --y: 20%; --size: 190px; --accent: #ffd166; --delay: 0s;"></span>
+        <span class="firework firework--2" style="--x: 84%; --y: 17%; --size: 170px; --accent: #8be9fd; --delay: 0.55s;"></span>
+        <span class="firework firework--3" style="--x: 18%; --y: 68%; --size: 160px; --accent: #ff8fab; --delay: 1.1s;"></span>
+        <span class="firework firework--4" style="--x: 82%; --y: 70%; --size: 210px; --accent: #a7f3d0; --delay: 1.45s;"></span>
+        <span class="firework firework--5" style="--x: 50%; --y: 14%; --size: 220px; --accent: #9d8cff; --delay: 1.9s;"></span>
+        <span class="confetti confetti--1" style="--x: 7%; --delay: 0.05s; --accent: #ffd166;"></span>
+        <span class="confetti confetti--2" style="--x: 15%; --delay: 0.24s; --accent: #8be9fd;"></span>
+        <span class="confetti confetti--3" style="--x: 24%; --delay: 0.4s; --accent: #ff8fab;"></span>
+        <span class="confetti confetti--4" style="--x: 40%; --delay: 0.64s; --accent: #a7f3d0;"></span>
+        <span class="confetti confetti--5" style="--x: 58%; --delay: 0.12s; --accent: #ffffff;"></span>
+        <span class="confetti confetti--6" style="--x: 68%; --delay: 0.33s; --accent: #ffd166;"></span>
+        <span class="confetti confetti--7" style="--x: 78%; --delay: 0.51s; --accent: #8be9fd;"></span>
+        <span class="confetti confetti--8" style="--x: 90%; --delay: 0.2s; --accent: #ff8fab;"></span>
+      </div>
+
+      <div class="final-shell">
+        <header class="final-header">
+          <p class="eyebrow final-badge" id="finalResultBadge">Run complete</p>
+          <h1 class="section-title final-title" id="finalTitle">Speedrun finished</h1>
+          <p class="final-subtitle" id="finalSubtitle">Your run stats will appear here once the speedrun ends.</p>
+        </header>
+
+        <section class="final-summary" aria-label="Run statistics">
+          <div class="final-summary__time">
+            <p class="section-label">Total time</p>
+            <div class="final-total-time" id="finalTotalTime">00:00:00<small>.000</small></div>
+          </div>
+
+          <div class="final-summary__splits">
+            <p class="section-label" id="finalGoalsLabel">Goal times</p>
+            <p class="final-summary__empty" id="finalSplitsEmpty">No goals were recorded for this run.</p>
+            <ul class="final-goal-list" id="finalSplitsList"></ul>
+          </div>
+
+          <div class="final-summary__points">
+            <p class="section-label">Points</p>
+            <p class="final-points" id="finalPointsValue">1</p>
+            <p class="final-points-note" id="finalPointsNote">1 base point + penalty points</p>
+          </div>
+        </section>
+
+        <div class="final-actions">
+          <a class="primary-button" id="startNewRunButton" href="index.html">Start a new run</a>
+          <button class="secondary-button" id="saveStatsButton" type="button">Save stats</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -26,6 +26,21 @@ const PENALTIES = Object.freeze([
 
 const GRID_SIZE = 5;
 const TOTAL_SLOTS = GRID_SIZE * GRID_SIZE;
+const FINAL_SUMMARY_STORAGE_KEY = "speedrun-bingo-final-summary";
+const BINGO_LINES = Object.freeze([
+  [1, 2, 3, 4, 5],
+  [6, 7, 8, 9, 10],
+  [11, 12, 13, 14, 15],
+  [16, 17, 18, 19, 20],
+  [21, 22, 23, 24, 25],
+  [1, 6, 11, 16, 21],
+  [2, 7, 12, 17, 22],
+  [3, 8, 13, 18, 23],
+  [4, 9, 14, 19, 24],
+  [5, 10, 15, 20, 25],
+  [1, 7, 13, 19, 25],
+  [5, 9, 13, 17, 21]
+]);
 const activeCountdownTimeouts = [];
 
 function scheduleCountdownStep(callback, delayMs) {
@@ -228,7 +243,7 @@ function applyCellState(cell, state) {
   cell.classList.toggle("is-blocked", state === "blocked");
 }
 
-function renderBoard(goals) {
+function renderBoard(goals, onCellStateChange) {
   for (let slot = 1; slot <= TOTAL_SLOTS; slot += 1) {
     const cell = document.getElementById(`slot${slot}`);
 
@@ -239,13 +254,29 @@ function renderBoard(goals) {
       if (cell.dataset.stateListener !== "true") {
         cell.addEventListener("click", () => {
           const currentState = cell.dataset.state ?? "normal";
-          applyCellState(cell, getCellStateForButton(currentState, "completed"));
+          const nextState = getCellStateForButton(currentState, "completed");
+
+          applyCellState(cell, nextState);
+          onCellStateChange?.({
+            slot,
+            goal: cell.textContent ?? "",
+            currentState,
+            nextState
+          });
         });
 
         cell.addEventListener("contextmenu", (event) => {
           event.preventDefault();
           const currentState = cell.dataset.state ?? "normal";
-          applyCellState(cell, getCellStateForButton(currentState, "blocked"));
+          const nextState = getCellStateForButton(currentState, "blocked");
+
+          applyCellState(cell, nextState);
+          onCellStateChange?.({
+            slot,
+            goal: cell.textContent ?? "",
+            currentState,
+            nextState
+          });
         });
 
         cell.dataset.stateListener = "true";
@@ -275,6 +306,86 @@ function buildCardUrl({ seed, difficulty, penalties }) {
 
   const query = params.toString();
   return query ? `bingo-card.html?${query}` : "bingo-card.html";
+}
+
+function buildFinalUrl() {
+  return "bingo-final.html";
+}
+
+function hasCompletedBingoLine(completedSlots) {
+  return BINGO_LINES.some((line) => line.every((slot) => completedSlots.has(slot)));
+}
+
+function saveFinalSummary(summary) {
+  try {
+    window.sessionStorage.setItem(FINAL_SUMMARY_STORAGE_KEY, JSON.stringify(summary));
+  } catch {
+    // Ignore storage errors and still allow the final page to open.
+  }
+}
+
+function readFinalSummary() {
+  try {
+    const storedSummary = window.sessionStorage.getItem(FINAL_SUMMARY_STORAGE_KEY);
+
+    if (!storedSummary) {
+      return null;
+    }
+
+    return JSON.parse(storedSummary);
+  } catch {
+    return null;
+  }
+}
+
+function buildFinalStatsText(summary) {
+  const lines = [];
+  const totalElapsedMs = Math.max(0, Number(summary?.totalElapsedMs ?? 0));
+  const didWin = Boolean(summary?.didWin);
+  const completedGoals = Array.isArray(summary?.completedGoals) ? summary.completedGoals : [];
+  const selectedPenalties = Array.isArray(summary?.selectedPenalties) ? summary.selectedPenalties : [];
+  const penaltyPoints = didWin ? Number(summary?.penaltyPoints ?? 0) : 0;
+  const pointsEarned = didWin ? Number(summary?.pointsEarned ?? (1 + penaltyPoints)) : 0;
+
+  lines.push(`Total time: ${formatSplitTime(totalElapsedMs)}`);
+  lines.push(`Points earned: ${pointsEarned} (1 base + ${penaltyPoints} penalty points)`);
+  lines.push("");
+  lines.push("Goal times:");
+
+  if (completedGoals.length === 0) {
+    lines.push("- No goals recorded");
+  } else {
+    completedGoals.forEach((goal) => {
+      lines.push(`- ${goal.goal}: ${formatSplitTime(goal.elapsedMs)}`);
+    });
+  }
+
+  if (selectedPenalties.length > 0) {
+    lines.push("");
+    lines.push("Penalties:");
+    selectedPenalties.forEach((penalty) => {
+      lines.push(`- ${penalty.name}: +${penalty.cost}`);
+    });
+  }
+
+  return lines.join("\n");
+}
+
+function downloadFinalStats(summary) {
+  const content = [
+    `Saved at: ${new Date().toISOString()}`,
+    buildFinalStatsText(summary)
+  ].join("\n\n");
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "speedrun-bingo-stats.txt";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => window.URL.revokeObjectURL(url), 1000);
 }
 
 function navigateTo(url) {
@@ -401,6 +512,18 @@ function formatRunTime(elapsedMs) {
   return `${[hours, minutes, seconds]
     .map((value) => String(value).padStart(2, "0"))
     .join(":")}<small class="card-timer__ms">.${String(milliseconds).padStart(3, "0")}</small>`;
+}
+
+function formatSplitTime(elapsedMs) {
+  const totalSeconds = Math.floor(elapsedMs / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  const milliseconds = Math.floor(elapsedMs % 1000);
+
+  return `${[hours, minutes, seconds]
+    .map((value) => String(value).padStart(2, "0"))
+    .join(":")}.${String(milliseconds).padStart(3, "0")}`;
 }
 
 function writeToClipboard(value) {
@@ -830,6 +953,11 @@ function initCardPage() {
   const pauseButton = document.getElementById("pauseSpeedrunButton");
   const selectedPenaltiesList = document.getElementById("selectedPenaltiesList");
   const selectedPenaltiesEmpty = document.getElementById("selectedPenaltiesEmpty");
+  const completedGoalsList = document.getElementById("completedGoalsList");
+  const completedGoalsEmpty = document.getElementById("completedGoalsEmpty");
+  const boardWrap = document.querySelector(".board-wrap");
+  const cardSplits = document.querySelector(".card-splits");
+  const completedGoalsLayoutQuery = window.matchMedia("(min-width: 901px)");
 
   if (!data) {
     return;
@@ -870,6 +998,151 @@ function initCardPage() {
   let timerElapsed = 0;
   let timerFrame = null;
   let timerPaused = false;
+  let runFinished = false;
+  const completedGoalsBySlot = new Map();
+
+  function syncCompletedGoalsHeight() {
+    if (!boardWrap || !cardSplits) {
+      return;
+    }
+
+    if (!completedGoalsLayoutQuery.matches) {
+      cardSplits.style.maxHeight = "";
+      return;
+    }
+
+    cardSplits.style.maxHeight = `${Math.ceil(boardWrap.getBoundingClientRect().height)}px`;
+  }
+
+  function getCurrentElapsedMs() {
+    return timerElapsed + (timerStartedAt === null ? 0 : window.performance.now() - timerStartedAt);
+  }
+
+  function renderCompletedGoals() {
+    if (!completedGoalsList) {
+      return;
+    }
+
+    const entries = Array.from(completedGoalsBySlot.values());
+
+    if (entries.length === 0) {
+      completedGoalsList.innerHTML = "";
+
+      if (completedGoalsEmpty) {
+        completedGoalsEmpty.hidden = false;
+      }
+
+      syncCompletedGoalsHeight();
+
+      return;
+    }
+
+    completedGoalsList.innerHTML = entries
+      .map((entry) => `
+        <li class="completed-goal-item">
+          <span class="completed-goal-item__name">${entry.goal}</span>
+          <time class="completed-goal-item__time">${formatSplitTime(entry.elapsedMs)}</time>
+        </li>
+      `)
+      .join("");
+
+    if (completedGoalsEmpty) {
+      completedGoalsEmpty.hidden = true;
+    }
+
+    syncCompletedGoalsHeight();
+  }
+
+  function handleGoalStateChange({ slot, goal, nextState }) {
+    const goalName = goal.trim();
+
+    if (!goalName) {
+      return;
+    }
+
+    if (nextState === "completed") {
+      completedGoalsBySlot.set(slot, {
+        goal: goalName,
+        elapsedMs: getCurrentElapsedMs()
+      });
+    } else {
+      completedGoalsBySlot.delete(slot);
+    }
+
+    renderCompletedGoals();
+
+    if (nextState === "completed") {
+      const completedSlots = new Set(completedGoalsBySlot.keys());
+
+      if (completedSlots.size > 0 && hasCompletedBingoLine(completedSlots)) {
+        finalizeRunAndOpenFinalPage();
+      }
+    }
+  }
+
+  function buildRunSummary() {
+    const totalElapsedMs = Math.max(0, Math.round(getCurrentElapsedMs()));
+    const completedGoals = Array.from(completedGoalsBySlot.entries())
+      .map(([slot, entry]) => ({
+        slot,
+        goal: entry.goal,
+        elapsedMs: Math.max(0, Math.round(entry.elapsedMs))
+      }))
+      .sort((left, right) => left.elapsedMs - right.elapsedMs);
+    const completedSlots = new Set(completedGoalsBySlot.keys());
+    const didWin = hasCompletedBingoLine(completedSlots);
+    const penaltyPoints = didWin ? selectedPenalties.reduce((total, penalty) => total + penalty.cost, 0) : 0;
+    const pointsEarned = didWin ? 1 + penaltyPoints : 0;
+
+    return {
+      endedAt: Date.now(),
+      boardUrl: buildCardUrl({
+        seed: seedInfo.seed,
+        difficulty: seedInfo.difficulty,
+        penalties: selectedPenalties.map((penalty) => penalty.id)
+      }),
+      seed: seedInfo.seed,
+      difficulty: difficulty.key,
+      difficultyLabel: difficulty.label,
+      didWin,
+      totalElapsedMs,
+      completedGoals,
+      selectedPenalties: selectedPenalties.map((penalty) => ({
+        id: penalty.id,
+        name: penalty.name,
+        description: penalty.description,
+        cost: penalty.cost
+      })),
+      penaltyPoints,
+      pointsEarned
+    };
+  }
+
+  function finalizeRunAndOpenFinalPage() {
+    if (runFinished) {
+      return;
+    }
+
+    runFinished = true;
+    saveFinalSummary(buildRunSummary());
+    stopTimerFrame();
+    timerStartedAt = null;
+
+    if (timerLabel) {
+      timerLabel.classList.add("is-ended");
+    }
+
+    endButton && (endButton.disabled = true);
+    if (endButton) {
+      endButton.textContent = "SPEEDRUN ENDED";
+    }
+
+    if (pauseButton) {
+      pauseButton.disabled = true;
+    }
+
+    navigateTo(buildFinalUrl());
+  }
 
   function refreshTimerLabel() {
     if (!timerLabel) {
@@ -879,7 +1152,7 @@ function initCardPage() {
     const elapsed = timerElapsed + (timerStartedAt === null ? 0 : window.performance.now() - timerStartedAt);
 
     timerLabel.innerHTML = formatRunTime(elapsed);
-    window.requestAnimationFrame(refreshTimerLabel);
+    timerFrame = window.requestAnimationFrame(refreshTimerLabel);
   }
 
   function startTimerFrame() {
@@ -895,7 +1168,7 @@ function initCardPage() {
       return;
     }
 
-    window.clearInterval(timerFrame);
+    window.cancelAnimationFrame(timerFrame);
     timerFrame = null;
   }
 
@@ -908,19 +1181,7 @@ function initCardPage() {
 
   if (endButton) {
     endButton.addEventListener("click", () => {
-      stopTimerFrame();
-      timerStartedAt = null;
-
-      if (timerLabel) {
-        timerLabel.classList.add("is-ended");
-      }
-
-      endButton.disabled = true;
-      endButton.textContent = "SPEEDRUN ENDED";
-
-      if (pauseButton) {
-        pauseButton.disabled = true;
-      }
+      finalizeRunAndOpenFinalPage();
     });
   }
 
@@ -953,7 +1214,120 @@ function initCardPage() {
   }
 
   const goals = generateBoard(data[difficulty.key], seedInfo.seed);
-  renderBoard(goals);
+  renderBoard(goals, handleGoalStateChange);
+  renderCompletedGoals();
+
+  if (boardWrap && cardSplits) {
+    const resizeObserver = window.ResizeObserver ? new window.ResizeObserver(() => {
+      syncCompletedGoalsHeight();
+    }) : null;
+
+    if (resizeObserver) {
+      resizeObserver.observe(boardWrap);
+    }
+
+    completedGoalsLayoutQuery.addEventListener("change", syncCompletedGoalsHeight);
+    window.addEventListener("resize", syncCompletedGoalsHeight);
+    syncCompletedGoalsHeight();
+  }
+}
+
+function initFinalPage() {
+  const summary = readFinalSummary();
+  const didWin = Boolean(summary?.didWin);
+  const totalElapsedMs = Math.max(0, Number(summary?.totalElapsedMs ?? 0));
+  const completedGoals = Array.isArray(summary?.completedGoals) ? summary.completedGoals : [];
+  const resultBadge = document.getElementById("finalResultBadge");
+  const titleNode = document.getElementById("finalTitle");
+  const subtitleNode = document.getElementById("finalSubtitle");
+  const goalsLabel = document.getElementById("finalGoalsLabel");
+  const totalTimeNode = document.getElementById("finalTotalTime");
+  const splitsList = document.getElementById("finalSplitsList");
+  const splitsEmpty = document.getElementById("finalSplitsEmpty");
+  const pointsValueNode = document.getElementById("finalPointsValue");
+  const pointsNoteNode = document.getElementById("finalPointsNote");
+  const saveStatsButton = document.getElementById("saveStatsButton");
+  const resultClass = didWin ? "is-win" : "is-loss";
+  const penaltyPoints = didWin ? Number(summary?.penaltyPoints ?? 0) : 0;
+  const pointsEarned = didWin ? Number(summary?.pointsEarned ?? (1 + penaltyPoints)) : 0;
+
+  document.body.classList.add(resultClass);
+  if (!didWin) {
+    document.body.classList.add("is-finish");
+  }
+
+  if (resultBadge) {
+    resultBadge.textContent = didWin ? "Bingo achieved" : "Run failed";
+  }
+
+  if (titleNode) {
+    titleNode.textContent = didWin ? "Victory lap" : "You lost";
+  }
+
+  if (subtitleNode) {
+    subtitleNode.textContent = didWin
+      ? `Bingo is complete. ${completedGoals.length} goal${completedGoals.length === 1 ? "" : "s"} and your points are collected below.`
+      : `The run ended before bingo. You still reached ${completedGoals.length} goal${completedGoals.length === 1 ? "" : "s"}, and the stats are collected below.`;
+  }
+
+  if (goalsLabel) {
+    goalsLabel.textContent = didWin ? "Bingo line time" : "Goals reached";
+  }
+
+  if (totalTimeNode) {
+    totalTimeNode.innerHTML = formatRunTime(totalElapsedMs);
+  }
+
+  if (pointsValueNode) {
+    pointsValueNode.textContent = String(pointsEarned);
+  }
+
+  if (pointsNoteNode) {
+    pointsNoteNode.textContent = didWin
+      ? `1 base point + ${penaltyPoints} penalty point${penaltyPoints === 1 ? "" : "s"}`
+      : "0 points. Penalties do not count when the run fails.";
+  }
+
+  if (splitsList) {
+    if (completedGoals.length === 0) {
+      splitsList.innerHTML = "";
+
+      if (splitsEmpty) {
+        splitsEmpty.hidden = false;
+      }
+    } else {
+      splitsList.innerHTML = completedGoals
+        .map((goal) => `
+          <li class="final-goal-item">
+            <strong>${goal.goal}</strong>
+            <time>${formatSplitTime(goal.elapsedMs)}</time>
+          </li>
+        `)
+        .join("");
+
+      if (splitsEmpty) {
+        splitsEmpty.hidden = true;
+      }
+    }
+  }
+
+  if (saveStatsButton) {
+    saveStatsButton.addEventListener("click", () => {
+      downloadFinalStats({
+        endedAt: summary?.endedAt ?? Date.now(),
+        seed: summary?.seed ?? "",
+        difficulty: summary?.difficulty ?? "normal",
+        difficultyLabel: summary?.difficultyLabel ?? "Normal",
+        didWin,
+        totalElapsedMs,
+        completedGoals,
+        selectedPenalties: Array.isArray(summary?.selectedPenalties) ? summary.selectedPenalties : [],
+        penaltyPoints,
+        pointsEarned,
+        boardUrl: summary?.boardUrl ?? "bingo-card.html"
+      });
+    });
+  }
 }
 
 function initPage() {
@@ -973,6 +1347,11 @@ function initPage() {
 
   if (pageType === "card") {
     initCardPage();
+    return;
+  }
+
+  if (pageType === "final") {
+    initFinalPage();
   }
 }
 
