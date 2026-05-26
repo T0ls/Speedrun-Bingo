@@ -1,6 +1,6 @@
 // Centralized goals database for all card difficulties.
 const easyCategories = [
-  ["Learn how to dig", "Read a book", "Learn how to grow in size", "Learn a new crafting recipe", "Learn how to shrink in size"],
+  ["Learn how to dig", "Read a book", "Learn how to grow in size", "Learn a new crafting recipe", "Learn how to shrink in size", "Completa una missione secondaria", "Trova 5 oggetti collezionabili nascosti", "Sblocca un nuovo personaggio giocabile"],
   ["Commit sudoko (kill urself)", "Kill a knight", "Kill a spider", "Kill a zombie", "Kill any flying enemy"],
   ["Collect 100 golden things", "Obtain a card", "Obtain a fruit", "Harvest some plants", "Obtain a key"],
   ["Obtain a map", "Reach any checkpoint", "Save your game", "Save with full health", "Create a backup save"],
@@ -28,7 +28,7 @@ const easyCategories = [
 ];
 
 const normalCategories = [
-  ["Learn an ability involving water", "Learn an ability involving fire", "Learn an ability involving electricity", "Learn a password", "Learn to fly"],
+  ["Learn an ability involving water", "Learn an ability involving fire", "Learn an ability involving electricity", "Learn a password", "Learn to fly", "Uccidi 10 nemici di fila senza subire danni", "Raggiungi il livello 20", "Sopravvivi per 15 minuti in modalità sopravvivenza", "Completa un livello senza usare abilità speciali"],
   ["Kill a mummy", "Kill an enemy while submerged", "Kill a floating hand", "Kill a floating skull", "Kill a ghost"],
   ["Obtain a vegetable", "Obtain explosives", "Obtain a rare artifact", "Obtain a legendary sword", "Obtain a piece of a map"],
   ["Save while poisoned", "Save with 1 HP", "Overwrite a save file", "Save after a boss fight", "Beat a level without saving"],
@@ -56,7 +56,7 @@ const normalCategories = [
 ];
 
 const hardCategories = [
-  ["Learn to teleport", "Manipulate time", "Manipulate gravity", "Learn all spells", "Learn to speak to animals"],
+  ["Learn to teleport", "Manipulate time", "Manipulate gravity", "Learn all spells", "Learn to speak to animals", "Finisci il gioco in meno di 2 ore", "Sconfiggi un boss usando solo attacchi corpo a corpo", "Esegui 5 colpi alla testa consecutivi"],
   ["Kill a dragon", "Kill a king", "Kill a shapeshifter", "Kill a god/deity", "Kill an invisible enemy"],
   ["Harvest wheat", "Obtain an endgame weapon", "Obtain all collectibles", "Obtain the true ending item", "Obtain every single item"],
   ["Save the game in a hostile area", "Complete the game without saving", "Save only 3 times in a run", "Corrupt a save file", "Delete your save file"],
